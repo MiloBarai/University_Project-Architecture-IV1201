@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.16, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
 -- Host: localhost    Database: iv1201
 -- ------------------------------------------------------
--- Server version	5.7.16-log
+-- Server version	5.7.11
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,14 +23,13 @@ DROP TABLE IF EXISTS `application`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `application` (
-  `id` bigint(11) NOT NULL,
-  `status` varchar(45) DEFAULT NULL,
-  `reg_date` datetime DEFAULT NULL,
-  `person_id` bigint(20) DEFAULT NULL,
-  `applicationcol` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  `application_id` bigint(20) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `registration_date` datetime NOT NULL,
+  `person_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`application_id`),
   KEY `application_person_id_idx` (`person_id`),
-  CONSTRAINT `application_person_id` FOREIGN KEY (`person_id`) REFERENCES `person` (`person_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `application_person_id` FOREIGN KEY (`person_id`) REFERENCES `person` (`person_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -51,14 +50,14 @@ DROP TABLE IF EXISTS `availability`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `availability` (
-  `availability_id` bigint(20) NOT NULL,
-  `person_id` bigint(20) DEFAULT NULL,
-  `from_date` date DEFAULT NULL,
+  `availability_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `person_id` bigint(20) NOT NULL,
+  `from_date` date NOT NULL,
   `to_date` date DEFAULT NULL,
   PRIMARY KEY (`availability_id`),
   KEY `availability_person_id_idx` (`person_id`),
   CONSTRAINT `availability_person_id` FOREIGN KEY (`person_id`) REFERENCES `person` (`person_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -80,8 +79,9 @@ DROP TABLE IF EXISTS `competence`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `competence` (
   `competence_id` bigint(20) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`competence_id`)
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`competence_id`),
+  UNIQUE KEY `name_UNIQUE` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -91,7 +91,7 @@ CREATE TABLE `competence` (
 
 LOCK TABLES `competence` WRITE;
 /*!40000 ALTER TABLE `competence` DISABLE KEYS */;
-INSERT INTO `competence` VALUES (1,'Korvgrillning'),(2,'Karuselldrift');
+INSERT INTO `competence` VALUES (2,'Karuselldrift'),(1,'Korvgrillning');
 /*!40000 ALTER TABLE `competence` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -103,16 +103,16 @@ DROP TABLE IF EXISTS `competence_profile`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `competence_profile` (
-  `id` bigint(20) NOT NULL,
-  `person_id` bigint(20) DEFAULT NULL,
-  `competence_id` bigint(20) DEFAULT NULL,
-  `years_of_experience` decimal(4,2) DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  `competence_profile_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `person_id` bigint(20) NOT NULL,
+  `competence_id` bigint(20) NOT NULL,
+  `years_of_experience` decimal(4,2) NOT NULL,
+  PRIMARY KEY (`competence_profile_id`),
   KEY `competence_person_id_idx` (`person_id`),
   KEY `competence_id_idx` (`competence_id`),
   CONSTRAINT `competence_id` FOREIGN KEY (`competence_id`) REFERENCES `competence` (`competence_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `competence_person_id` FOREIGN KEY (`person_id`) REFERENCES `person` (`person_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -136,13 +136,15 @@ CREATE TABLE `person` (
   `person_id` bigint(20) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `surname` varchar(255) DEFAULT NULL,
-  `ssn` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
+  `ssn` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `role_id` bigint(20) DEFAULT NULL,
-  `username` varchar(255) DEFAULT NULL,
+  `username` varchar(255) NOT NULL,
   PRIMARY KEY (`person_id`),
-  UNIQUE KEY `ssn_UNIQUE` (`ssn`)
+  UNIQUE KEY `ssn_UNIQUE` (`ssn`),
+  KEY `person_role_id_idx` (`role_id`),
+  CONSTRAINT `person_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -152,7 +154,7 @@ CREATE TABLE `person` (
 
 LOCK TABLES `person` WRITE;
 /*!40000 ALTER TABLE `person` DISABLE KEYS */;
-INSERT INTO `person` VALUES (1,'Greta','Borg',NULL,NULL,'wl9nk23a',1,'borg'),(2,'Per','Strand','19671212-1211','per@strand.kth.se',NULL,2,NULL);
+INSERT INTO `person` VALUES (1,'Greta','Borg','19850412-0512\r\n','greta.borg@kth.se','wl9nk23a',1,'borg'),(2,'Per','Strand','19671212-1211','per@strand.kth.se','dasd1sd1wT',2,'strand');
 /*!40000 ALTER TABLE `person` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -165,8 +167,9 @@ DROP TABLE IF EXISTS `role`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `role` (
   `role_id` bigint(20) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`role_id`)
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`role_id`),
+  UNIQUE KEY `name_UNIQUE` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -176,7 +179,7 @@ CREATE TABLE `role` (
 
 LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
-INSERT INTO `role` VALUES (1,'recruit'),(2,'applicant');
+INSERT INTO `role` VALUES (2,'applicant'),(1,'recruit');
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -189,4 +192,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-31 13:18:25
+-- Dump completed on 2017-02-02 14:12:22

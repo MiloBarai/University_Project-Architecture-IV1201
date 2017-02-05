@@ -46,7 +46,7 @@ public class Person implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "person_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long personId;
     @Column(name = "name")
     private String name;
@@ -61,6 +61,7 @@ public class Person implements Serializable {
     private String password;
     @Column(name = "username")
     private String username;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "personId")
     private Collection<Application> applicationCollection;
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
@@ -74,7 +75,8 @@ public class Person implements Serializable {
     public Person() {
     }
 
-    public Person(String ssn, String email, String password, String username) {
+    public Person(Long personId, String ssn, String email, String password, String username) {
+        this.personId = personId;
         this.ssn = ssn;
         this.email = email;
         this.password = password;
@@ -83,6 +85,10 @@ public class Person implements Serializable {
 
     public Long getPersonId() {
         return personId;
+    }
+
+    public void setPersonId(Long personId) {
+        this.personId = personId;
     }
 
     public String getName() {

@@ -7,7 +7,6 @@ package se.kth.ict.iv1201.recruitmentapp.model;
 
 import java.io.Serializable;
 import java.util.Collection;
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,7 +20,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -53,13 +52,17 @@ public class Person implements Serializable {
     @Column(name = "surname")
     private String surname;
     @Column(name = "ssn")
+    @NotNull
     private String ssn;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Column(name = "email")
+    @NotNull
     private String email;
     @Column(name = "password")
+    @NotNull
     private String password;
     @Column(name = "username")
+    @NotNull
     private String username;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "personId")
@@ -75,15 +78,33 @@ public class Person implements Serializable {
     public Person() {
     }
 
-    public Person(String ssn, String email, String password, String username) {
+    public Person(String username, String password, String name, String surname, String ssn, String email) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
         this.ssn = ssn;
         this.email = email;
-        this.password = password;
-        this.username = username;
     }
-
+  
     public Long getPersonId() {
         return personId;
+    }
+  
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+  
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getName() {
@@ -116,22 +137,6 @@ public class Person implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     @XmlTransient

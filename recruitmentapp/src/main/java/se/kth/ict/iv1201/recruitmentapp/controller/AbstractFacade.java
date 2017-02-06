@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package se.kth.ict.iv1201.recruitmentapp.session;
+package se.kth.ict.iv1201.recruitmentapp.controller;
 
 import java.util.List;
 import javax.persistence.EntityManager;

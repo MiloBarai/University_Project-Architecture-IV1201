@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package se.kth.ict.iv1201.recruitmentapp.session;
+package se.kth.ict.iv1201.recruitmentapp.controller;
 
 import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import se.kth.ict.iv1201.recruitmentapp.entity.Person;
+import se.kth.ict.iv1201.recruitmentapp.model.Person;
 
 /**
  *

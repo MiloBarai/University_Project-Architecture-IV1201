@@ -9,7 +9,7 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-import se.kth.ict.iv1201.recruitmentapp.session.PersonFacade;
+import se.kth.ict.iv1201.recruitmentapp.controller.PersonFacade;
 
 /**
  *

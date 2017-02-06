@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package se.kth.ict.iv1201.recruitmentapp.entity;
+package se.kth.ict.iv1201.recruitmentapp.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

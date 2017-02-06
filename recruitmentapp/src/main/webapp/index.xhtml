@@ -10,39 +10,39 @@
     <h:body>
         <ui:composition template="resources/templates/base.xhtml">
             <ui:define name="title">Register</ui:define>
-             <ui:define name="top">Register!</ui:define>
+            <ui:define name="top">Register!</ui:define>
             <ui:define name="content">
-            <h:form>
-                <h:panelGrid columns="2" >
-                    <h:outputText value="Name"/>
-                    <h:inputText id="txtName" value="#{web.name}"/>
+                <h:form>
+                    <h:panelGrid columns="2" >
+                        <h:outputText value="Name"/>
+                        <h:inputText value="#{web.name}"/>
 
-                    <h:outputText value="Surname"/>
-                    <h:inputText value="#{web.surname}"/>
+                        <h:outputText value="Surname"/>
+                        <h:inputText value="#{web.surname}"/>
 
-                    <h:outputText value="SSN"/>
-                    <h:inputText value="#{web.ssn}"
-                                 requierd="true"/>
+                        <h:outputText value="SSN"/>
+                        <h:inputText value="#{web.ssn}"
+                                     required="true"/>
 
 
-                    <h:outputText value="Email"/>
-                    <h:inputText value="#{web.email}"
-                                 requierd="true"/>
-                    
-                    <h:outputText value="Username"/>
-                    <h:inputText value="#{web.username}"
-                                 requierd="true"/>
-                    
-                    <h:outputText value="password"/>
-                    <h:inputText value="#{web.password}"
-                                 requierd="true"/>
-                    <br/>
-                    <h:commandButton value="Register" action="#{web.save()}"/>
-                </h:panelGrid>
-            </h:form>
-                
-        </ui:define>
+                        <h:outputText value="Email"/>
+                        <h:inputText value="#{web.email}"
+                                     required="true"/>
+
+                        <h:outputText value="Username"/>
+                        <h:inputText value="#{web.username}"
+                                     required="true"/>
+
+                        <h:outputText value="Password"/>
+                        <h:inputSecret value="#{web.password}"
+                                       required="true"/>
+                        <br/>
+                        <h:commandButton value="Register" action="#{web.save()}"/>
+                    </h:panelGrid>
+                </h:form>
+
+            </ui:define>
         </ui:composition>
 
     </h:body>
-
+</html>

@@ -5,19 +5,29 @@
  */
 package se.kth.ict.iv1201.recruitmentapp.view;
 
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
+
+
 /**
  *
  * @author masaralmosawi
  */
 
-
+@ManagedBean(name="obj")
+@SessionScoped
 public class Register {
     private String name;
     private String surname;
     private String email;
-    private int dateb;
+    private String dateb;
     
     
+ 
+  
+  
   
   public Register() {
       
@@ -35,7 +45,7 @@ public class Register {
         return email;
     }
 
-    public int getDateb() {
+    public String getDateb() {
         return dateb;
     }
 
@@ -51,7 +61,7 @@ public class Register {
         this.email = email;
     }
 
-    public void setDateb(int dateb) {
+    public void setDateb(String dateb) {
         this.dateb = dateb;
     }
     

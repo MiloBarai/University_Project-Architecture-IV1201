@@ -1,14 +1,16 @@
-?xml version='1.0' encoding='UTF-8' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
-        <title>Register</title>
+        <title>><ui:insert name="Register"/></title>
     </h:head>
     <h:body>
        
         <h:form>
+            
             <h:outputLabel for="txtName">
                 <h:outputText value="Name"/>
                 
@@ -28,13 +30,13 @@
             <br/>
                 
                 <h:outputLabel for="txtdatebirth">
-                    <h:outputText value="Date of birth ÅÅMMDD"/>
+                    <h:outputText value="Date of birth"/>
                   
                 </h:outputLabel>
-                <h:inputText id="txtdatebirth" value="#{obj.dateb}"/>
+                <h:inputText id="txtdatebirth" value="#{obj.dateb}" />
                 <br/>
                 
-                <br/>
+                
                 
                 <h:outputLabel for="txtMail">
                     <h:outputText value="Email"/>
@@ -43,8 +45,9 @@
                 <h:inputText id="txtMail" value="#{obj.email}"/>
                 <br/>
                     
-                    <h:commandButton id="cmdInsert" value="Add Item" action="#{obj.add}"/>
-                             
+                    <h:commandButton id="cmdInsert" value="Register" action="#{obj.add}"/>
+                
+           
         </h:form>
     </h:body>
 </html>

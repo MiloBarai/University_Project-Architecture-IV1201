@@ -7,7 +7,6 @@ package se.kth.ict.iv1201.recruitmentapp.model;
 
 import java.io.Serializable;
 import java.util.Collection;
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,7 +20,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -46,20 +45,24 @@ public class Person implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "person_id")
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long personId;
     @Column(name = "name")
     private String name;
     @Column(name = "surname")
     private String surname;
     @Column(name = "ssn")
+    @NotNull
     private String ssn;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Column(name = "email")
+    @NotNull
     private String email;
     @Column(name = "password")
+    @NotNull
     private String password;
     @Column(name = "username")
+    @NotNull
     private String username;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "personId")
@@ -75,20 +78,18 @@ public class Person implements Serializable {
     public Person() {
     }
 
-    public Person(Long personId, String ssn, String email, String password, String username) {
-        this.personId = personId;
+    public Person(String username, String password, String name, String surname, String ssn, String email) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
         this.ssn = ssn;
         this.email = email;
-        this.password = password;
-        this.username = username;
+
     }
 
     public Long getPersonId() {
         return personId;
-    }
-
-    public void setPersonId(Long personId) {
-        this.personId = personId;
     }
 
     public String getName() {

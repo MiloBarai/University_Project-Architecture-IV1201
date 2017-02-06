@@ -20,18 +20,22 @@
                     <h:outputText value="Surname"/>
                     <h:inputText value="#{web.surname}"/>
 
-                    <h:outputText value="Date of birth"/>
-                    <h:inputText value="#{web.ssn}" />
+                    <h:outputText value="SSN"/>
+                    <h:inputText value="#{web.ssn}"
+                                 requierd="true"/>
 
 
                     <h:outputText value="Email"/>
-                    <h:inputText value="#{web.email}"/>
+                    <h:inputText value="#{web.email}"
+                                 requierd="true"/>
                     
                     <h:outputText value="Username"/>
-                    <h:inputText value="#{web.username}"/>
+                    <h:inputText value="#{web.username}"
+                                 requierd="true"/>
                     
                     <h:outputText value="password"/>
-                    <h:inputText value="#{web.password}"/>
+                    <h:inputText value="#{web.password}"
+                                 requierd="true"/>
                     <br/>
                     <h:commandButton value="Register" action="#{web.save()}"/>
                 </h:panelGrid>
@@ -39,6 +43,6 @@
                 
         </ui:define>
         </ui:composition>
+
     </h:body>
-</html>
 

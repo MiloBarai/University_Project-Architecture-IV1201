@@ -19,7 +19,7 @@ import javax.validation.Payload;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidEmail {
 
-    String message() default "{se.kth.ict.iv1201.beanvalidation.view.ValidEmail.invalidZipCode}";
+    String message() default "{se.kth.ict.iv1201.recruitmentapp.view.ValidEmail.invalidEmail}";
 
     Class<?>[] groups() default {};
 
@@ -37,7 +37,7 @@ public @interface ValidEmail {
                 return false;
             }
             try {
-                return value.length() == 5;
+                return value.contains("@") && value.contains(".");
             } catch (NumberFormatException nfe) {
                 return false;
             }
@@ -46,7 +46,7 @@ public @interface ValidEmail {
         private boolean isEmpty(String value, ConstraintValidatorContext context) {
             if (value.length() == 0) {
                 context.disableDefaultConstraintViolation();
-                context.buildConstraintViolationWithTemplate("{se.kth.ict.iv1201.beanvalidation.view.ValidZipCode.noZip}").addConstraintViolation();
+                context.buildConstraintViolationWithTemplate("{se.kth.ict.iv1201.recruitmentapp.view.ValidEmail.noEmail}").addConstraintViolation();
                 return true;
             }
             return false;

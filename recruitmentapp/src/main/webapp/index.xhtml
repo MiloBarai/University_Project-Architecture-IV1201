@@ -5,50 +5,40 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
-        <title>><ui:insert name="Register"/></title>
+        <title><ui:insert name="Register"/></title>
     </h:head>
     <h:body>
-       
-        <h:form>
-            
-            <h:outputLabel for="txtName">
-                <h:outputText value="Name"/>
-                
-            </h:outputLabel>
-            
-            <h:inputText id="txtName" value="#{obj.name}"/>
-            
-            <br/>
-                
-            <h:outputLabel for="txtSName">
-                <h:outputText value="Surname"/>
-                
-            </h:outputLabel>
-            
-            <h:inputText id="txtSname" value="#{obj.surname}"/>
-            
-            <br/>
-                
-                <h:outputLabel for="txtdatebirth">
+        <ui:composition template="resources/templates/base.xhtml">
+            <ui:define name="title">Register</ui:define>
+             <ui:define name="top">Register!</ui:define>
+            <ui:define name="content">
+            <h:form>
+                <h:panelGrid columns="2" >
+                    <h:outputText value="Name"/>
+                    <h:inputText id="txtName" value="#{web.name}"/>
+
+                    <h:outputText value="Surname"/>
+                    <h:inputText value="#{web.surname}"/>
+
                     <h:outputText value="Date of birth"/>
-                  
-                </h:outputLabel>
-                <h:inputText id="txtdatebirth" value="#{obj.dateb}" />
-                <br/>
-                
-                
-                
-                <h:outputLabel for="txtMail">
+                    <h:inputText value="#{web.ssn}" />
+
+
                     <h:outputText value="Email"/>
-                  
-                </h:outputLabel>
-                <h:inputText id="txtMail" value="#{obj.email}"/>
-                <br/>
+                    <h:inputText value="#{web.email}"/>
                     
-                    <h:commandButton id="cmdInsert" value="Register" action="#{obj.add}"/>
+                    <h:outputText value="Username"/>
+                    <h:inputText value="#{web.username}"/>
+                    
+                    <h:outputText value="password"/>
+                    <h:inputText value="#{web.password}"/>
+                    <br/>
+                    <h:commandButton value="Register" action="#{web.save()}"/>
+                </h:panelGrid>
+            </h:form>
                 
-           
-        </h:form>
+        </ui:define>
+        </ui:composition>
     </h:body>
 </html>
 

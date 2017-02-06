@@ -23,19 +23,10 @@ public class Web {
     @EJB
     private PersonFacade pf;
 
-    private Long personId;
     private String ssn;
     private String email;
     private String password;
     private String username;
-
-    public Long getPersonId() {
-        return personId;
-    }
-
-    public void setPersonId(Long personId) {
-        this.personId = personId;
-    }
 
     public String getSsn() {
         return ssn;
@@ -71,7 +62,7 @@ public class Web {
 
     public void save() {
         try {
-            pf.Save(personId, ssn, email, password, username);
+            pf.Save(ssn, email, password, username);
         } catch (Exception e) {
             throw new EJBException(e.getMessage());
         }

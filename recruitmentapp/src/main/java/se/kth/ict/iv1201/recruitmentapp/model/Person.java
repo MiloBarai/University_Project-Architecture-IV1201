@@ -46,7 +46,7 @@ public class Person implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "person_id")
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long personId;
     @Column(name = "name")
     private String name;
@@ -75,8 +75,7 @@ public class Person implements Serializable {
     public Person() {
     }
 
-    public Person(Long personId, String ssn, String email, String password, String username) {
-        this.personId = personId;
+    public Person(String ssn, String email, String password, String username) {
         this.ssn = ssn;
         this.email = email;
         this.password = password;
@@ -85,10 +84,6 @@ public class Person implements Serializable {
 
     public Long getPersonId() {
         return personId;
-    }
-
-    public void setPersonId(Long personId) {
-        this.personId = personId;
     }
 
     public String getName() {

@@ -113,6 +113,11 @@ public class Person implements Serializable {
         return username;
     }
 
+    /**
+     * Sets the value of username
+     *
+     * @param username value of username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
@@ -126,6 +131,11 @@ public class Person implements Serializable {
         return password;
     }
 
+    /**
+     * Sets the value of password
+     *
+     * @param password value of username
+     */
     public void setPassword(String password) {
         this.password = password;
     }
@@ -139,6 +149,11 @@ public class Person implements Serializable {
         return name;
     }
 
+    /**
+     * Sets the value of name
+     *
+     * @param name value of username
+     */
     public void setName(String name) {
         this.name = name;
     }
@@ -152,6 +167,11 @@ public class Person implements Serializable {
         return surname;
     }
 
+    /**
+     * Sets the value of surname
+     *
+     * @param surname value of surname
+     */
     public void setSurname(String surname) {
         this.surname = surname;
     }
@@ -165,6 +185,11 @@ public class Person implements Serializable {
         return ssn;
     }
 
+    /**
+     * Sets the value of ssn
+     *
+     * @param ssn value of ssn
+     */
     public void setSsn(String ssn) {
         this.ssn = ssn;
     }

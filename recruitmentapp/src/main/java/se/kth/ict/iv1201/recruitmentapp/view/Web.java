@@ -24,54 +24,77 @@ public class Web {
     private String email;
     private long role;
 
+    /**
+     * Never used but JSF does not support write-only properties.
+     */
     public String getUsername() {
-        return username;
+        return null;
     }
 
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * Never used but JSF does not support write-only properties.
+     */
     public String getPassword() {
-        return password;
+        return null;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * Never used but JSF does not support write-only properties.
+     */
     public String getName() {
-        return name;
+        return null;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Never used but JSF does not support write-only properties.
+     */
     public String getSurname() {
-        return surname;
+        return null;
     }
 
     public void setSurname(String surname) {
         this.surname = surname;
     }
 
+    /**
+     * Never used but JSF does not support write-only properties.
+     */
     public String getSsn() {
-        return ssn;
+        return null;
     }
 
     public void setSsn(String ssn) {
         this.ssn = ssn;
     }
 
+    /**
+     * Never used but JSF does not support write-only properties.
+     */
     public String getEmail() {
-        return email;
+        return null;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * Withdraws the amount set by the latest call to
+     * <code>setTransactionAmount</code> from the account specified by
+     * <code>currentAcct.getAcctNo()</code>.
+     */
     public void save() {
         try {
             // Default role set to applicant (2)

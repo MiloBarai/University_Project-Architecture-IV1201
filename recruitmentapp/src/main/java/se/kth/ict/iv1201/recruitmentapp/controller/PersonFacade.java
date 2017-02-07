@@ -1,7 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @author Arvid Persson Moosavi <amoosavi at kth.se>
  */
 package se.kth.ict.iv1201.recruitmentapp.controller;
 
@@ -11,10 +9,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import se.kth.ict.iv1201.recruitmentapp.model.Person;
 
-/**
- *
- * @author Arvid Persson Moosavi <amoosavi at kth.se>
- */
 @Stateless
 public class PersonFacade extends AbstractFacade<Person> {
 

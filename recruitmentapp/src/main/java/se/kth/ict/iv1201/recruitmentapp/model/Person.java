@@ -1,7 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @author Arvid Persson Moosavi <amoosavi at kth.se>
  */
 package se.kth.ict.iv1201.recruitmentapp.model;
 
@@ -22,8 +20,7 @@ import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
- * @author Arvid Persson Moosavi <amoosavi at kth.se>
+ * A persistent representation of a Person.
  */
 @Entity
 @Table(name = "person")
@@ -70,9 +67,24 @@ public class Person implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "personId")
     private Collection<Availability> availabilityCollection;
 
+    /**
+     * Creates a new instance of Person
+     */
     public Person() {
     }
 
+    /**
+     * Creates a new instance of Person
+     *
+     * @param username given username of Person instance
+     * @param password given password of Person instance
+     * @param name given name of Person instance
+     * @param surname given surname of Person instance
+     * @param ssn given Social Security Number (SSN) of Person instance
+     * @param email given email of Person instance
+     * @param roleId given role id of Person instance
+     *
+     */
     public Person(String username, String password, String name, String surname, String ssn, String email, long roleId) {
         this.username = username;
         this.password = password;
@@ -83,10 +95,20 @@ public class Person implements Serializable {
         this.roleId = roleId;
     }
 
+    /**
+     * Get the value of personId
+     *
+     * @return the value of personId
+     */
     public Long getPersonId() {
         return personId;
     }
 
+    /**
+     * Get the value of username
+     *
+     * @return the value of username
+     */
     public String getUsername() {
         return username;
     }
@@ -95,6 +117,11 @@ public class Person implements Serializable {
         this.username = username;
     }
 
+    /**
+     * Get the value of password
+     *
+     * @return the value of password
+     */
     public String getPassword() {
         return password;
     }
@@ -103,6 +130,11 @@ public class Person implements Serializable {
         this.password = password;
     }
 
+    /**
+     * Get the value of name
+     *
+     * @return the value of name
+     */
     public String getName() {
         return name;
     }
@@ -111,6 +143,11 @@ public class Person implements Serializable {
         this.name = name;
     }
 
+    /**
+     * Get the value of surname
+     *
+     * @return the value of surname
+     */
     public String getSurname() {
         return surname;
     }
@@ -119,6 +156,11 @@ public class Person implements Serializable {
         this.surname = surname;
     }
 
+    /**
+     * Get the value of Social Security Number (SSN)
+     *
+     * @return the value of ssn
+     */
     public String getSsn() {
         return ssn;
     }
@@ -127,6 +169,11 @@ public class Person implements Serializable {
         this.ssn = ssn;
     }
 
+    /**
+     * Get the value of email
+     *
+     * @return the value of email
+     */
     public String getEmail() {
         return email;
     }
@@ -135,6 +182,11 @@ public class Person implements Serializable {
         this.email = email;
     }
 
+    /**
+     * Get the value of roleId
+     *
+     * @return the value of roleId
+     */
     public long getRoleId() {
         return roleId;
     }

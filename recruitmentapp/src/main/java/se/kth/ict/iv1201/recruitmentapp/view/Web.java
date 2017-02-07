@@ -29,6 +29,7 @@ public class Web {
     private String surname;
     private String ssn;
     private String email;
+    private long role;
 
     public String getUsername() {
         return username;
@@ -80,7 +81,18 @@ public class Web {
 
     public void save() {
         try {
-            pf.Save(username, password, name, surname, ssn, email);
+            // Default role set to applicant (2)
+            this.role = 2;
+            pf.Save(username, password, name, surname, ssn, email, role);
+        } catch (Exception e) {
+            throw new EJBException(e.getMessage());
+        }
+    }
+
+    public void save(long role) {
+        try {
+            this.role = role;
+            pf.Save(username, password, name, surname, ssn, email, role);
         } catch (Exception e) {
             throw new EJBException(e.getMessage());
         }

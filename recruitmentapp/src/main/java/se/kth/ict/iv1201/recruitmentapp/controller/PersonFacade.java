@@ -30,9 +30,9 @@ public class PersonFacade extends AbstractFacade<Person> {
         super(Person.class);
     }
 
-    public void Save(String username, String password, String name, String surname, String ssn, String email) {
+    public void Save(String username, String password, String name, String surname, String ssn, String email, long role) {
         try {
-            Person mPerson = new Person(username, password, name, surname, ssn, email);
+            Person mPerson = new Person(username, password, name, surname, ssn, email, role);
             em.persist(mPerson);
         } catch (Exception e) {
             throw new EJBException(e.getMessage());

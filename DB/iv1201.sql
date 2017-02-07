@@ -143,6 +143,8 @@ CREATE TABLE `person` (
   `username` varchar(255) NOT NULL,
   PRIMARY KEY (`person_id`),
   UNIQUE KEY `ssn_UNIQUE` (`ssn`),
+  UNIQUE KEY `email` (`email`),
+  UNIQUE KEY `username` (`username`),
   KEY `person_role_id_idx` (`role_id`),
   CONSTRAINT `person_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -192,4 +194,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-02-02 14:12:22
+-- Dump completed on 2017-02-07 16:09:06

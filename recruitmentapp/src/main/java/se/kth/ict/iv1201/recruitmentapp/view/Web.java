@@ -9,6 +9,9 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import se.kth.ict.iv1201.recruitmentapp.controller.PersonFacade;
 
+/**
+ * A view manager. All calls from JSF web view are handled through this class.
+ */
 @Named
 @RequestScoped
 public class Web {
@@ -31,6 +34,11 @@ public class Web {
         return null;
     }
 
+    /**
+     * Set the value of username
+     *
+     * @param username new value of username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
@@ -42,6 +50,11 @@ public class Web {
         return null;
     }
 
+    /**
+     * Set the value of password
+     *
+     * @param password new value of password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
@@ -53,6 +66,11 @@ public class Web {
         return null;
     }
 
+    /**
+     * Set the value of name
+     *
+     * @param name new value of name
+     */
     public void setName(String name) {
         this.name = name;
     }
@@ -64,6 +82,11 @@ public class Web {
         return null;
     }
 
+    /**
+     * Set the value of surname
+     *
+     * @param surname new value of surname
+     */
     public void setSurname(String surname) {
         this.surname = surname;
     }
@@ -75,6 +98,11 @@ public class Web {
         return null;
     }
 
+    /**
+     * Set the value of ssn
+     *
+     * @param ssn new value of ssn
+     */
     public void setSsn(String ssn) {
         this.ssn = ssn;
     }
@@ -86,14 +114,20 @@ public class Web {
         return null;
     }
 
+    /**
+     * Set the value of email
+     *
+     * @param email new value of email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
     /**
-     * Withdraws the amount set by the latest call to
-     * <code>setTransactionAmount</code> from the account specified by
-     * <code>currentAcct.getAcctNo()</code>.
+     * Calls <code>PersonFacade.Save()</code> with given arguments. Default role
+     * set to 2, which is applicant.
+     *
+     * @throws EJBException
      */
     public void save() {
         try {
@@ -105,6 +139,12 @@ public class Web {
         }
     }
 
+    /**
+     * Calls <code>PersonFacade.Save()</code> with given arguments.
+     *
+     * @param role user's role.
+     * @throws EJBException
+     */
     public void save(long role) {
         try {
             this.role = role;
@@ -113,5 +153,4 @@ public class Web {
             throw new EJBException(e.getMessage());
         }
     }
-
 }

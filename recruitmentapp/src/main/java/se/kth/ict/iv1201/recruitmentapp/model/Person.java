@@ -203,6 +203,11 @@ public class Person implements Serializable {
         return email;
     }
 
+    /**
+     * Sets the value of email
+     *
+     * @param email value of email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
@@ -216,6 +221,11 @@ public class Person implements Serializable {
         return roleId;
     }
 
+    /**
+     * Sets the value of roleId
+     *
+     * @param roleId value of roleId
+     */
     public void setRoleId(long roleId) {
         this.roleId = roleId;
     }

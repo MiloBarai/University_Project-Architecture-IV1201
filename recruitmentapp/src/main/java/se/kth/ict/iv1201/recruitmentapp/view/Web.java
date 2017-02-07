@@ -79,14 +79,21 @@ public class Web {
         this.email = email;
     }
 
-    public void save() {
+    public String save() {
         try {
             // Default role set to applicant (2)
             this.role = 2;
             pf.Save(username, password, name, surname, ssn, email, role);
         } catch (Exception e) {
-            throw new EJBException(e.getMessage());
+            username="";
+            password="";
+            name="";
+            surname="";
+            ssn="";
+            email="";
+            return "failure";
         }
+        return "success";
     }
 
     public void save(long role) {
@@ -94,8 +101,10 @@ public class Web {
             this.role = role;
             pf.Save(username, password, name, surname, ssn, email, role);
         } catch (Exception e) {
-            throw new EJBException(e.getMessage());
+            
         }
+        
+        
     }
 
 }

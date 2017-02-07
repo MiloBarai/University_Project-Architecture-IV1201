@@ -78,19 +78,20 @@ public class Person implements Serializable {
     public Person() {
     }
 
-    public Person(String username, String password, String name, String surname, String ssn, String email) {
+    public Person(String username, String password, String name, String surname, String ssn, String email, long role) {
         this.username = username;
         this.password = password;
         this.name = name;
         this.surname = surname;
         this.ssn = ssn;
         this.email = email;
+        this.role = role;
     }
-  
+
     public Long getPersonId() {
         return personId;
     }
-  
+
     public String getUsername() {
         return username;
     }
@@ -98,7 +99,7 @@ public class Person implements Serializable {
     public void setUsername(String username) {
         this.username = username;
     }
-  
+
     public String getPassword() {
         return password;
     }

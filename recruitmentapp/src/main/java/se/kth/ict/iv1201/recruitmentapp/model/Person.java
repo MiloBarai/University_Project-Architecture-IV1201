@@ -1,7 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @author Arvid Persson Moosavi <amoosavi at kth.se>
  */
 package se.kth.ict.iv1201.recruitmentapp.model;
 
@@ -22,8 +20,7 @@ import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
- * @author Arvid Persson Moosavi <amoosavi at kth.se>
+ * A persistent representation of a Person.
  */
 @Entity
 @Table(name = "person")
@@ -70,9 +67,24 @@ public class Person implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "personId")
     private Collection<Availability> availabilityCollection;
 
+    /**
+     * Creates a new instance of Person
+     */
     public Person() {
     }
 
+    /**
+     * Creates a new instance of Person
+     *
+     * @param username given username of Person instance
+     * @param password given password of Person instance
+     * @param name given name of Person instance
+     * @param surname given surname of Person instance
+     * @param ssn given Social Security Number (SSN) of Person instance
+     * @param email given email of Person instance
+     * @param roleId given role id of Person instance
+     *
+     */
     public Person(String username, String password, String name, String surname, String ssn, String email, long roleId) {
         this.username = username;
         this.password = password;
@@ -83,62 +95,137 @@ public class Person implements Serializable {
         this.roleId = roleId;
     }
 
+    /**
+     * Get the value of personId
+     *
+     * @return the value of personId
+     */
     public Long getPersonId() {
         return personId;
     }
 
+    /**
+     * Get the value of username
+     *
+     * @return the value of username
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Sets the value of username
+     *
+     * @param username value of username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * Get the value of password
+     *
+     * @return the value of password
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Sets the value of password
+     *
+     * @param password value of username
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * Get the value of name
+     *
+     * @return the value of name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets the value of name
+     *
+     * @param name value of username
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Get the value of surname
+     *
+     * @return the value of surname
+     */
     public String getSurname() {
         return surname;
     }
 
+    /**
+     * Sets the value of surname
+     *
+     * @param surname value of surname
+     */
     public void setSurname(String surname) {
         this.surname = surname;
     }
 
+    /**
+     * Get the value of Social Security Number (SSN)
+     *
+     * @return the value of ssn
+     */
     public String getSsn() {
         return ssn;
     }
 
+    /**
+     * Sets the value of ssn
+     *
+     * @param ssn value of ssn
+     */
     public void setSsn(String ssn) {
         this.ssn = ssn;
     }
 
+    /**
+     * Get the value of email
+     *
+     * @return the value of email
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Sets the value of email
+     *
+     * @param email value of email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * Get the value of roleId
+     *
+     * @return the value of roleId
+     */
     public long getRoleId() {
         return roleId;
     }
 
+    /**
+     * Sets the value of roleId
+     *
+     * @param roleId value of roleId
+     */
     public void setRoleId(long roleId) {
         this.roleId = roleId;
     }

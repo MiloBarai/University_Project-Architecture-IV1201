@@ -64,12 +64,11 @@ public class Person implements Serializable {
     @Column(name = "username")
     @NotNull
     private String username;
+    @Column(name = "role_id")
+    private long roleId;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "personId")
     private Collection<Application> applicationCollection;
-    @JoinColumn(name = "role_id", referencedColumnName = "role_id")
-    @ManyToOne
-    private Role roleId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "personId")
     private Collection<CompetenceProfile> competenceProfileCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "personId")
@@ -78,14 +77,14 @@ public class Person implements Serializable {
     public Person() {
     }
 
-    public Person(String username, String password, String name, String surname, String ssn, String email, long role) {
+    public Person(String username, String password, String name, String surname, String ssn, String email, long roleId) {
         this.username = username;
         this.password = password;
         this.name = name;
         this.surname = surname;
         this.ssn = ssn;
         this.email = email;
-        this.role = role;
+        this.roleId = roleId;
     }
 
     public Long getPersonId() {
@@ -140,6 +139,14 @@ public class Person implements Serializable {
         this.email = email;
     }
 
+    public long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(long roleId) {
+        this.roleId = roleId;
+    }
+
     @XmlTransient
     public Collection<Application> getApplicationCollection() {
         return applicationCollection;
@@ -147,14 +154,6 @@ public class Person implements Serializable {
 
     public void setApplicationCollection(Collection<Application> applicationCollection) {
         this.applicationCollection = applicationCollection;
-    }
-
-    public Role getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Role roleId) {
-        this.roleId = roleId;
     }
 
     @XmlTransient

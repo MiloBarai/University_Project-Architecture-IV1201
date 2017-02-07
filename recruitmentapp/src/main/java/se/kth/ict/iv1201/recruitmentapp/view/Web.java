@@ -81,8 +81,9 @@ public class Web {
 
     public void save() {
         try {
-
-            pf.Save(username, password, name, surname, ssn, email);
+            // Default role set to applicant (2)
+            this.role = 2;
+            pf.Save(username, password, name, surname, ssn, email, role);
         } catch (Exception e) {
             throw new EJBException(e.getMessage());
         }

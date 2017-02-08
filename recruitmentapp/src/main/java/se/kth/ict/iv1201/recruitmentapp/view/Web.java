@@ -25,6 +25,15 @@ public class Web {
     private String surname;
     private String ssn;
     private String email;
+private String errorMsg;
+
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+    }
     private long role;
 
     /**
@@ -134,15 +143,18 @@ public class Web {
             // Default role set to applicant (2)
             this.role = 2;
             pf.Save(username, password, name, surname, ssn, email, role);
-        } catch (Exception e) {
-            username="";
-            password="";
-            name="";
-            surname="";
-            ssn="";
-            email="";
-            return "failure";
+
         }
+        catch(Exception e){
+           errorMsg=getRootCause(e).getMessage();
+           username="";
+           password="";
+           name="";
+           surname="";
+           ssn="";
+           email="";
+           return "failure";
+            }
         return "success";
     }
 
@@ -159,5 +171,11 @@ public class Web {
         } catch (Exception e) {
             
         }
-    }
+    }    
+    private static Throwable getRootCause(Throwable throwable) {
+    if (throwable.getCause() != null)
+        return getRootCause(throwable.getCause());
+
+    return throwable;
+}
 }

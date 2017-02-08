@@ -4,7 +4,6 @@
 package se.kth.ict.iv1201.recruitmentapp.view;
 
 import javax.ejb.EJB;
-import javax.ejb.EJBException;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import se.kth.ict.iv1201.recruitmentapp.controller.PersonFacade;
@@ -25,7 +24,7 @@ public class Web {
     private String surname;
     private String ssn;
     private String email;
-private String errorMsg;
+    private String errorMsg;
 
     public String getErrorMsg() {
         return errorMsg;
@@ -134,9 +133,10 @@ private String errorMsg;
 
     /**
      * Calls <code>PersonFacade.Save()</code> with given arguments. Default role
-     * set to 2, which is applicant.
+     * set to 2, which is applicant. Catches Exception(e) if the username, ssn
+     * or password is already found in the database.
      *
-     * @throws EJBException
+     * @return Failure or Success depending on outcome of method call.
      */
     public String save() {
         try {
@@ -144,17 +144,16 @@ private String errorMsg;
             this.role = 2;
             pf.Save(username, password, name, surname, ssn, email, role);
 
+        } catch (Exception e) {
+            errorMsg = getRootCause(e).getMessage();
+            username = "";
+            password = "";
+            name = "";
+            surname = "";
+            ssn = "";
+            email = "";
+            return "failure";
         }
-        catch(Exception e){
-           errorMsg=getRootCause(e).getMessage();
-           username="";
-           password="";
-           name="";
-           surname="";
-           ssn="";
-           email="";
-           return "failure";
-            }
         return "success";
     }
 
@@ -162,20 +161,19 @@ private String errorMsg;
      * Calls <code>PersonFacade.Save()</code> with given arguments.
      *
      * @param role user's role.
-     * @throws EJBException
      */
     public void save(long role) {
         try {
             this.role = role;
             pf.Save(username, password, name, surname, ssn, email, role);
         } catch (Exception e) {
-            
         }
-    }    
-    private static Throwable getRootCause(Throwable throwable) {
-    if (throwable.getCause() != null)
-        return getRootCause(throwable.getCause());
+    }
 
-    return throwable;
-}
+    private static Throwable getRootCause(Throwable throwable) {
+        if (throwable.getCause() != null) {
+            return getRootCause(throwable.getCause());
+        }
+        return throwable;
+    }
 }

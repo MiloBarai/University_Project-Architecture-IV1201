@@ -1,18 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @author
+ *
+ * IV1201 Design of Global Applications: Group 8
+ * Arvid Persson Moosavi <amoosavi at kth.se>
+ * Arvin Behshad <arvinb at kth.se>
+ * Milad Barai <barai at kth.se>
+ * Massar Almosawi <massar at kth.se>
+ *
  */
 package se.kth.ict.iv1201.recruitmentapp.model;
 
 import javax.persistence.EntityManager;
 
 public class DBHandler {
+
     EntityManager em;
-    public DBHandler(EntityManager em){
+
+    public DBHandler(EntityManager em) {
         this.em = em;
     }
-     /**
+
+    /**
      * Creates a new user (Person) with the specified parameters and persists
      * its data.
      *
@@ -45,22 +53,24 @@ public class DBHandler {
      * in database.
      */
     private String errorFinder(String username, String ssn, String email) {
-        String errors="";
+
+        String errors = "";
 
         int i = em.createNamedQuery("Person.findBySsn").setParameter("ssn", ssn).getResultList().size();
         if (i > 0) {
-            errors= "SSN already registered!";
+            errors = "SSN already registered!";
         }
-        i = em.createNamedQuery("Person.findByUsername").setParameter("username",username).getResultList().size();
+        i = em.createNamedQuery("Person.findByUsername").setParameter("username", username).getResultList().size();
         if (i > 0) {
-            errors+= " Username already registered!";
+            errors += " Username already registered!";
         }
-        i = em.createNamedQuery("Person.findByEmail").setParameter("email",email).getResultList().size();
+        i = em.createNamedQuery("Person.findByEmail").setParameter("email", email).getResultList().size();
         if (i > 0) {
-            errors+= " Email already registered!";
+            errors += " Email already registered!";
         }
-        if(!errors.equals(""))
+        if (!errors.equals("")) {
             return errors;
+        }
         return "none";
     }
 }

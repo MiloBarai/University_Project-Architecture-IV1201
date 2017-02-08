@@ -1,5 +1,12 @@
 /**
- * @author Arvid Persson Moosavi <amoosavi at kth.se>
+ * @author
+ *
+ * IV1201 Design of Global Applications: Group 8
+ * Arvid Persson Moosavi <amoosavi at kth.se>
+ * Arvin Behshad <arvinb at kth.se>
+ * Milad Barai <barai at kth.se>
+ * Massar Almosawi <massar at kth.se>
+ *
  */
 package se.kth.ict.iv1201.recruitmentapp.model;
 

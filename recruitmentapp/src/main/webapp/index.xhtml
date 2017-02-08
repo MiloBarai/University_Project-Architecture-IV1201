@@ -39,6 +39,9 @@
                         <br/>
                         <h:commandButton value="Register" action="#{web.save()}"/>
                     </h:panelGrid>
+                    <div id="error">
+                    <h:outputText value="#{web.errorMsg}"/>
+                    </div>
                 </h:form>
 
             </ui:define>

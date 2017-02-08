@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title><ui:insert name="Register"/></title>
+    </h:head>
+    <h:body>
+        <ui:composition template="resources/templates/base.xhtml">
+            <ui:define name="title">Register</ui:define>
+            <ui:define name="top">Register!</ui:define>
+            <ui:define name="content">
+                <h:form>
+                    <h:panelGrid columns="2" >
+                        <h:outputText value="Name"/>
+                        <h:inputText value="#{web.name}"/>
+
+                        <h:outputText value="Surname"/>
+                        <h:inputText value="#{web.surname}"/>
+
+                        <h:outputText value="SSN *"/>
+                        <h:inputText value="#{web.ssn}"
+                                     required="true"
+                                     a:placeholder="YYYYMMDD-XXXX"/>
+
+
+                        <h:outputText value="Email *"/>
+                        <h:inputText value="#{web.email}"
+                                     required="true"
+                                     a:placeholder="test@test.com"/>
+
+                        <h:outputText value="Username *"/>
+                        <h:inputText value="#{web.username}"
+                                     required="true"
+                                     a:placeholder="a username"/>
+
+                        <h:outputText value="Password *"/>
+                        <h:inputSecret value="#{web.password}"
+                                       required="true"
+                                       a:placeholder="a strong password"/>
+                        <br/>
+                        <h:commandButton value="Register" action="#{web.save()}"/>
+                    </h:panelGrid>
+                    <p><h:outputText value="Fields marked with an asterisk (*) are required."/></p>
+                    <div id="error">
+                        <h:outputText value="#{web.errorMsg}"/>
+                    </div>
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+
+    </h:body>
+</html>

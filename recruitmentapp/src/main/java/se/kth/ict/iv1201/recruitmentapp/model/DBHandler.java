@@ -7,10 +7,6 @@ package se.kth.ict.iv1201.recruitmentapp.model;
 
 import javax.persistence.EntityManager;
 
-/**
- *
- * @author MediaMarkt
- */
 public class DBHandler {
     EntityManager em;
     public DBHandler(EntityManager em){
@@ -20,14 +16,7 @@ public class DBHandler {
      * Creates a new user (Person) with the specified parameters and persists
      * its data.
      *
-     * @param username user's username.
-     * @param password user's password.
-     * @param name user's name.
-     * @param surname user's surname.
-     * @param ssn user's Social Security Number (ssn).
-     * @param email user's email.
-     * @param role user's role.
-     *
+     * @param p person to be saved in db
      * @throws Exception
      */
     public void Save(Person p) throws Exception {

@@ -45,19 +45,22 @@ public class DBHandler {
      * in database.
      */
     private String errorFinder(String username, String ssn, String email) {
+        String errors="";
 
         int i = em.createNamedQuery("Person.findBySsn").setParameter("ssn", ssn).getResultList().size();
         if (i > 0) {
-            return "SSN already registered!";
+            errors= "SSN already registered!";
         }
         i = em.createNamedQuery("Person.findByUsername").setParameter("username",username).getResultList().size();
         if (i > 0) {
-            return "Username already registered!";
+            errors+= " Username already registered!";
         }
         i = em.createNamedQuery("Person.findByEmail").setParameter("email",email).getResultList().size();
         if (i > 0) {
-            return "Email already registered!";
+            errors+= " Email already registered!";
         }
+        if(!errors.equals(""))
+            return errors;
         return "none";
     }
 }

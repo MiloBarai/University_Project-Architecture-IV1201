@@ -7,6 +7,7 @@ import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import se.kth.ict.iv1201.recruitmentapp.model.Person;
 
 /**
@@ -23,6 +24,7 @@ public class PersonFacade {
         return em;
     }
 
+
     /**
      * Creates a new user (Person) with the specified parameters and persists
      * its data.
@@ -37,13 +39,30 @@ public class PersonFacade {
      *
      * @throws EJBException
      */
-    public void Save(String username, String password, String name, String surname, String ssn, String email, long role) {
+    public void Save(String username, String password, String name, String surname, String ssn, String email, long role) throws Exception {
+
         try {
             Person mPerson = new Person(username, password, name, surname, ssn, email, role);
-            em.persist(mPerson);
+            String reply=errorFinder(username,ssn,email);
+            if(!reply.equals("none"))
+                throw new Exception(reply);
+                em.persist(mPerson);
         } catch (Exception e) {
-            throw new EJBException(e.getMessage());
+            throw new Exception(e.getMessage());   
+            
+                
         }
     }
-
+    private String errorFinder(String username, String ssn, String email){
+    int i=em.createNativeQuery("SELECT * FROM person WHERE ssn='"+ssn+"'").getResultList().size();
+    if(i>0)
+        return "SSN taken";
+     i=em.createNativeQuery("SELECT * FROM person WHERE username='"+username+"'").getResultList().size();
+    if(i>0)
+        return "Username taken";
+     i=em.createNativeQuery("SELECT * FROM person WHERE email='"+email+"'").getResultList().size();
+    if(i>0)
+        return "Email taken";
+    return "none";
+    }
 }

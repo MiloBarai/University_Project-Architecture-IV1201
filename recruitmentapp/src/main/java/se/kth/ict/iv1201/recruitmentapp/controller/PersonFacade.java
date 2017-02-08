@@ -6,6 +6,7 @@ package se.kth.ict.iv1201.recruitmentapp.controller;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import se.kth.ict.iv1201.recruitmentapp.model.DBHandler;
 import se.kth.ict.iv1201.recruitmentapp.model.Person;
 
 /**
@@ -40,42 +41,10 @@ public class PersonFacade {
 
         try {
             Person mPerson = new Person(username, password, name, surname, ssn, email, role);
-            String reply = errorFinder(username, ssn, email);
-            if (!reply.equals("none")) {
-                throw new Exception(reply);
-            }
-            em.persist(mPerson);
+            DBHandler db = new DBHandler(em);
+            db.Save(mPerson);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
-    }
-
-    /**
-     * Checks for duplicate entries in the database. If any of the parameters
-     * were already registered in the db a corresponding error message is
-     * returned to caller.
-     *
-     * @param username user's username.
-     * @param ssn user's Social Security Number (ssn).
-     * @param email user's email.
-     *
-     * @return a proper error message if any of the parameters were duplicates
-     * in database.
-     */
-    private String errorFinder(String username, String ssn, String email) {
-
-        int i = em.createNativeQuery("SELECT * FROM person WHERE ssn='" + ssn + "'").getResultList().size();
-        if (i > 0) {
-            return "SSN already registered!";
-        }
-        i = em.createNativeQuery("SELECT * FROM person WHERE username='" + username + "'").getResultList().size();
-        if (i > 0) {
-            return "Username already registered!";
-        }
-        i = em.createNativeQuery("SELECT * FROM person WHERE email='" + email + "'").getResultList().size();
-        if (i > 0) {
-            return "Email already registered!";
-        }
-        return "none";
     }
 }

@@ -8,6 +8,8 @@
  * Massar Almosawi <massar at kth.se>
  *
  */
+
+/*
 package se.kth.ict.iv1201.recruitmentapp.model;
 
 import java.io.Serializable;
@@ -107,3 +109,5 @@ public class Role implements Serializable {
     }
 
 }
+
+*/

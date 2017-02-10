@@ -15,6 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import se.kth.ict.iv1201.recruitmentapp.model.DBHandler;
 import se.kth.ict.iv1201.recruitmentapp.model.Person;
+import utils.GeneralUtils;
 
 /**
  * A controller. Calls to the model that are executed because of an action taken
@@ -48,7 +49,8 @@ public class PersonFacade {
      * @throws Exception
      */
     public void Save(String username, String password, String name, String surname, String ssn, String email, long role) throws Exception {
-        Person mPerson = new Person(username, password, name, surname, ssn, email, role);
+        
+        Person mPerson = new Person(username, GeneralUtils.encryptPass(password), name, surname, ssn, email, role);
         DBHandler db = new DBHandler(em);
         db.Save(mPerson);
     }

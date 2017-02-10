@@ -67,6 +67,11 @@ public class Person implements Serializable {
     @Column(name = "role_id")
     private long roleId;
 
+    /*
+    @JoinColumn(name = "role_id", referencedColumnName = "role_id")
+    @ManyToOne
+    private Role roleId;
+     */
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "personId")
     private Collection<Application> applicationCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "personId")

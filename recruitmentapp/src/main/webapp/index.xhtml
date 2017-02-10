@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title><ui:insert name="Register"/></title>
     </h:head>
@@ -45,7 +46,11 @@
                     </h:panelGrid>
                     <p><h:outputText value="Fields marked with an asterisk (*) are required."/></p>
                     <div id="error">
-                        <h:outputText value="#{web.errorMsg}"/>
+                        <ui:repeat value="#{web.errorMsg}" var="error">
+                        #{error}
+                        <br/>
+                        <br/>
+                        </ui:repeat>
                     </div>
                 </h:form>
 

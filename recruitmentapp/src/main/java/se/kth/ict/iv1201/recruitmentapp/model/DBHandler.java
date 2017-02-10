@@ -10,6 +10,9 @@
  */
 package se.kth.ict.iv1201.recruitmentapp.model;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Calendar;
 import javax.persistence.EntityManager;
 
 public class DBHandler {
@@ -28,12 +31,10 @@ public class DBHandler {
      * @throws Exception
      */
     public void Save(Person p) throws Exception {
-
+        //Remove "-" if any
+        p.setSsn(p.getSsn().replace("-", ""));
         try {
-            String reply = errorFinder(p.getUsername(), p.getSsn(), p.getEmail());
-            if (!reply.equals("none")) {
-                throw new Exception(reply);
-            }
+            inputValidation(p.getUsername(), p.getSsn(), p.getEmail());
             em.persist(p);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
@@ -48,29 +49,40 @@ public class DBHandler {
      * @param username user's username.
      * @param ssn user's Social Security Number (ssn).
      * @param email user's email.
-     *
-     * @return a proper error message if any of the parameters were duplicates
-     * in database.
      */
-    private String errorFinder(String username, String ssn, String email) {
+    private void inputValidation(String username, String ssn, String email) throws Exception {
 
         String errors = "";
 
         int i = em.createNamedQuery("Person.findBySsn").setParameter("ssn", ssn).getResultList().size();
         if (i > 0) {
-            errors = "SSN already registered!";
+            errors = "100:";
         }
         i = em.createNamedQuery("Person.findByUsername").setParameter("username", username).getResultList().size();
         if (i > 0) {
-            errors += " Username already registered!";
+            errors += "101:";
         }
         i = em.createNamedQuery("Person.findByEmail").setParameter("email", email).getResultList().size();
         if (i > 0) {
-            errors += " Email already registered!";
+            errors += "102:";
+        }
+        if(ssn.length()!=12)
+            errors +="103:";
+        else{
+            if(!(ssn.matches("[0-9]+")))
+                errors +="103:";
+            if(((Calendar.getInstance().get(Calendar.YEAR))-Integer.parseInt(ssn.substring(0, 4)))>122){
+                errors += "104:";
+            }
+        }
+        try{
+            InetAddress ia = InetAddress.getByName(email.split("@")[1]);
+        }
+        catch(UnknownHostException e){
+            errors+="105:";
         }
         if (!errors.equals("")) {
-            return errors;
+            throw new Exception(errors);
         }
-        return "none";
     }
 }

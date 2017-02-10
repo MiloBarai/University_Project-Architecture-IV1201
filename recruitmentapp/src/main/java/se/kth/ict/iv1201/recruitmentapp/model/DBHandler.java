@@ -40,7 +40,7 @@ public class DBHandler {
             throw new Exception(e.getMessage());
         }
     }
-
+    
     /**
      * Checks for duplicate entries in the database. If any of the parameters
      * were already registered in the db a corresponding error message is

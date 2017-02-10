@@ -32,18 +32,30 @@ public class Web {
     private String ssn;
     private String email;
     private String errorMsg;
+    private long role;
 
+    /**
+     * Get the value of errorMsg
+     *
+     * @return the value of errorMsg
+     */
     public String getErrorMsg() {
         return errorMsg;
     }
 
+    /**
+     * Set the value of errorMsg
+     *
+     * @param errorMsg new value of errorMsg
+     */
     public void setErrorMsg(String errorMsg) {
         this.errorMsg = errorMsg;
     }
-    private long role;
 
     /**
      * Never used but JSF does not support write-only properties.
+     *
+     * @return null
      */
     public String getUsername() {
         return null;
@@ -60,6 +72,8 @@ public class Web {
 
     /**
      * Never used but JSF does not support write-only properties.
+     *
+     * @return null
      */
     public String getPassword() {
         return null;
@@ -76,6 +90,8 @@ public class Web {
 
     /**
      * Never used but JSF does not support write-only properties.
+     *
+     * @return null
      */
     public String getName() {
         return null;
@@ -92,6 +108,8 @@ public class Web {
 
     /**
      * Never used but JSF does not support write-only properties.
+     *
+     * @return null
      */
     public String getSurname() {
         return null;
@@ -108,6 +126,8 @@ public class Web {
 
     /**
      * Never used but JSF does not support write-only properties.
+     *
+     * @return null
      */
     public String getSsn() {
         return null;
@@ -124,6 +144,8 @@ public class Web {
 
     /**
      * Never used but JSF does not support write-only properties.
+     *
+     * @return null
      */
     public String getEmail() {
         return null;

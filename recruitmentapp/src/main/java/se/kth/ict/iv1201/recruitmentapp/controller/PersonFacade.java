@@ -26,6 +26,9 @@ public class PersonFacade {
     @PersistenceContext(unitName = "se.kth.ict.iv1201_recruitmentapp_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
+    /**
+     * @return the EntityManager instance em.
+     */
     protected EntityManager getEntityManager() {
         return em;
     }
@@ -45,13 +48,8 @@ public class PersonFacade {
      * @throws Exception
      */
     public void Save(String username, String password, String name, String surname, String ssn, String email, long role) throws Exception {
-
-        try {
-            Person mPerson = new Person(username, password, name, surname, ssn, email, role);
-            DBHandler db = new DBHandler(em);
-            db.Save(mPerson);
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
-        }
+        Person mPerson = new Person(username, password, name, surname, ssn, email, role);
+        DBHandler db = new DBHandler(em);
+        db.Save(mPerson);
     }
 }

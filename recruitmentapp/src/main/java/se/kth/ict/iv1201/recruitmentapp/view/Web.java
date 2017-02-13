@@ -159,18 +159,6 @@ public class Web {
     public void setEmail(String email) {
         this.email = email;
     }
-    
-    public String login(){
-        try {
-            pf.Auth(username, password);
-            System.out.println("Received Values: " + username + " " + password);
-        } catch (Exception e) {
-            showErrorMsg(e);
-            resetFields();
-            return "login_failure";
-        }
-        return "success";
-    }
 
     /**
      * Calls <code>PersonFacade.Save()</code> with given arguments. Default role
@@ -250,12 +238,6 @@ public class Web {
                     break;
                 case "105":
                     ret="Email not Reachable";
-                    break;
-                case "106":
-                    ret="Username does not exist";
-                    break;
-                case "107":
-                    ret="Wrong password";
                     break;
                 default:
                     ret= "Unknow Error Occured, please contact us at mail@kth.se";

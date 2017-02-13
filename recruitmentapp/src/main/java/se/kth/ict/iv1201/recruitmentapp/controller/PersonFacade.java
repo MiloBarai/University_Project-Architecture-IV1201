@@ -54,9 +54,4 @@ public class PersonFacade {
         DBHandler db = new DBHandler(em);
         db.Save(mPerson);
     }
-
-    public void Auth(String username, String password) throws Exception {
-        DBHandler db = new DBHandler(em);
-        db.login(username, GeneralUtils.encryptPass(password));
-    }
 }

@@ -31,7 +31,7 @@ public class Web {
     private String surname;
     private String ssn;
     private String email;
-    private String[] errorMsg=new String[1];
+    private String[] errorMsg = new String[1];
     private long role;
 
     /**
@@ -200,48 +200,51 @@ public class Web {
         }
         return throwable;
     }
-    private void showErrorMsg(Exception e){
+
+    private void showErrorMsg(Exception e) {
         String error = getRootCause(e).getMessage();
-        String[] errorlist=error.split(":");
-                
-        for(int i=0;i<errorlist.length;i++)
-            errorlist[i]=errorTranslator(errorlist[i]);
-                    
-        errorMsg=errorlist;
-        
+        String[] errorlist = error.split(":");
+
+        for (int i = 0; i < errorlist.length; i++) {
+            errorlist[i] = errorTranslator(errorlist[i]);
+        }
+
+        errorMsg = errorlist;
+
     }
 
     private void resetFields() {
-            username = "";
-            password = "";
-            name = "";
-            surname = "";
-            ssn = "";
-            email = "";
+        username = "";
+        password = "";
+        name = "";
+        surname = "";
+        ssn = "";
+        email = "";
     }
-    private String errorTranslator(String code){
+
+    private String errorTranslator(String code) {
         String ret;
-        switch(code){
-                case "100":
-                    ret= "User with SSN already registered";
-                    break;
-                case "101":
-                    ret= "Username is taken";
-                    break;
-                case "102":
-                    ret="Email is already registered";
-                case "103":
-                    ret="Invalid format on SSN";
-                    break;
-                case "104":
-                    ret="Unreasonable SSN";
-                    break;
-                case "105":
-                    ret="Email not Reachable";
-                    break;
-                default:
-                    ret= "Unknow Error Occured, please contact us at mail@kth.se";
+        switch (code) {
+            case "100":
+                ret = "User with SSN already registered";
+                break;
+            case "101":
+                ret = "Username is taken";
+                break;
+            case "102":
+                ret = "Email is already registered";
+            case "103":
+                ret = "Invalid format on SSN";
+                break;
+            case "104":
+                ret = "Unreasonable SSN";
+                break;
+            case "105":
+                ret = "Email not Reachable";
+                break;
+            default:
+                ret = "Unknow Error Occured, please contact us at mail@kth.se";
         }
         return ret;
-        }
+    }
 }

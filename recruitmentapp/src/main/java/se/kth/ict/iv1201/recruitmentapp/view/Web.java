@@ -10,10 +10,17 @@
  */
 package se.kth.ict.iv1201.recruitmentapp.view;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
 import javax.inject.Named;
 import se.kth.ict.iv1201.recruitmentapp.controller.PersonFacade;
+import se.kth.ict.iv1201.recruitmentapp.model.Role;
 
 /**
  * A view manager. All calls from JSF web view are handled through this class.
@@ -32,11 +39,28 @@ public class Web {
     private String ssn;
     private String email;
     private String[] errorMsg = new String[1];
-<<<<<<< HEAD
-    // private long role;
-=======
-    private long role;
->>>>>>> Dev
+    private String[] roles;
+    private String role;
+
+    public String getRole() {
+        return null;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String[] getRoles() {
+        if(roles==null){
+            List<Role> temp=pf.getRoles();
+             roles = new String[temp.size()];
+            for(int i=0;i<temp.size();i++){
+                roles[i]=temp.get(i).getName();
+            }
+            
+        }
+        return roles;
+    }
 
     /**
      * Get the value of errorMsg
@@ -175,7 +199,7 @@ public class Web {
         try {
             // Default role set to applicant (2)
             // this.role = 2;
-            pf.Save(username, password, name, surname, ssn, email);
+            pf.Save(username, password, name, surname, ssn, email, role);
 
         } catch (Exception e) {
             showErrorMsg(e);
@@ -183,19 +207,6 @@ public class Web {
             return "failure";
         }
         return "success";
-    }
-
-    /**
-     * Calls <code>PersonFacade.Save()</code> with given arguments.
-     *
-     * @param role user's role.
-     */
-    public void save(long role) {
-        try {
-            // this.role = role;
-            pf.Save(username, password, name, surname, ssn, email);
-        } catch (Exception e) {
-        }
     }
 
     private static Throwable getRootCause(Throwable throwable) {
@@ -251,4 +262,5 @@ public class Web {
         }
         return ret;
     }
+
 }

@@ -103,6 +103,6 @@ public class Role implements Serializable {
 
     @Override
     public String toString() {
-        return "se.kth.ict.iv1201.recruitmentapp.entity.Role[ roleId=" + roleId + " ]";
+        return name;
     }
 }

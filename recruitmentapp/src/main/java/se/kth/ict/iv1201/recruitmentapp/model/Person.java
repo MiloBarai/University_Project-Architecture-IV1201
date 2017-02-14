@@ -94,13 +94,14 @@ public class Person implements Serializable {
      * @param roleId given role id of Person instance
      *
      */
-    public Person(String username, String password, String name, String surname, String ssn, String email) {
+    public Person(String username, String password, String name, String surname, String ssn, String email, Role role) {
         this.username = username;
         this.password = password;
         this.name = name;
         this.surname = surname;
         this.ssn = ssn;
         this.email = email;
+        this.roleId = role;
     }
 
     /**

@@ -10,11 +10,13 @@
  */
 package se.kth.ict.iv1201.recruitmentapp.controller;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import se.kth.ict.iv1201.recruitmentapp.model.DBHandler;
 import se.kth.ict.iv1201.recruitmentapp.model.Person;
+import se.kth.ict.iv1201.recruitmentapp.model.Role;
 import se.kth.ict.iv1201.recruitmentapp.utils.GeneralUtils;
 
 /**
@@ -48,10 +50,15 @@ public class PersonFacade {
      *
      * @throws Exception
      */
-    public void Save(String username, String password, String name, String surname, String ssn, String email) throws Exception {
-
-        Person mPerson = new Person(username, GeneralUtils.encryptPass(password), name, surname, ssn, email);
+    public void Save(String username, String password, String name, String surname, String ssn, String email, String role) throws Exception {
         DBHandler db = new DBHandler(em);
+        Role r = db.getRole(role);
+        Person mPerson = new Person(username, GeneralUtils.encryptPass(password), name, surname, ssn, email, r);
         db.Save(mPerson);
+    }
+
+    public List<Role> getRoles() {
+        DBHandler db = new DBHandler(em);
+        return db.getRoles();
     }
 }

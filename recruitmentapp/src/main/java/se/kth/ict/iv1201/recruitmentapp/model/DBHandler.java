@@ -13,6 +13,7 @@ package se.kth.ict.iv1201.recruitmentapp.model;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Calendar;
+import java.util.List;
 import javax.persistence.EntityManager;
 
 public class DBHandler {
@@ -84,5 +85,13 @@ public class DBHandler {
         if (!errors.equals("")) {
             throw new Exception(errors);
         }
+    }
+
+    public List<Role> getRoles() {
+        return em.createNamedQuery("Role.findAll").getResultList();
+    }
+
+    public Role getRole(String role) {
+        return (Role)em.createNamedQuery("Role.findByName").setParameter("name", role).getSingleResult();
     }
 }

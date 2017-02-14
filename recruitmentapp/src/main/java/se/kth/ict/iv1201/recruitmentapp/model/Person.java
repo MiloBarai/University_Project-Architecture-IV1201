@@ -18,6 +18,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -64,16 +66,11 @@ public class Person implements Serializable {
     @Column(name = "username")
     @NotNull
     private String username;
-    //@Column(name = "role_id")
-    //private long roleId;
-
-    /*
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personId")
+    private Collection<Application> applicationCollection;
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
     @ManyToOne
     private Role roleId;
-     */
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personId")
-    private Collection<Application> applicationCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "personId")
     private Collection<CompetenceProfile> competenceProfileCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "personId")
@@ -228,21 +225,19 @@ public class Person implements Serializable {
      *
      * @return the value of roleId
      */
-    /*
-    public long getRoleId() {
+    public Role getRoleId() {
         return roleId;
     }
-     */
+
     /**
      * Sets the value of roleId
      *
      * @param roleId value of roleId
      */
-    /*
-    public void setRoleId(long roleId) {
+    public void setRoleId(Role roleId) {
         this.roleId = roleId;
     }
-     */
+
     @XmlTransient
     public Collection<Application> getApplicationCollection() {
         return applicationCollection;

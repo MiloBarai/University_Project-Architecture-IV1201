@@ -15,7 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import se.kth.ict.iv1201.recruitmentapp.model.DBHandler;
 import se.kth.ict.iv1201.recruitmentapp.model.Person;
-import utils.GeneralUtils;
+import se.kth.ict.iv1201.recruitmentapp.utils.GeneralUtils;
 
 /**
  * A controller. Calls to the model that are executed because of an action taken

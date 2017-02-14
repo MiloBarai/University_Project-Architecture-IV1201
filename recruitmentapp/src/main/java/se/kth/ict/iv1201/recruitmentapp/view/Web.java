@@ -32,7 +32,11 @@ public class Web {
     private String ssn;
     private String email;
     private String[] errorMsg = new String[1];
+<<<<<<< HEAD
     // private long role;
+=======
+    private long role;
+>>>>>>> Dev
 
     /**
      * Get the value of errorMsg

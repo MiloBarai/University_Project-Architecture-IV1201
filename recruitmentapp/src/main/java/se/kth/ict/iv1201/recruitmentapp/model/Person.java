@@ -64,8 +64,8 @@ public class Person implements Serializable {
     @Column(name = "username")
     @NotNull
     private String username;
-    @Column(name = "role_id")
-    private long roleId;
+    //@Column(name = "role_id")
+    //private long roleId;
 
     /*
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
@@ -97,14 +97,13 @@ public class Person implements Serializable {
      * @param roleId given role id of Person instance
      *
      */
-    public Person(String username, String password, String name, String surname, String ssn, String email, long roleId) {
+    public Person(String username, String password, String name, String surname, String ssn, String email) {
         this.username = username;
         this.password = password;
         this.name = name;
         this.surname = surname;
         this.ssn = ssn;
         this.email = email;
-        this.roleId = roleId;
     }
 
     /**
@@ -229,19 +228,21 @@ public class Person implements Serializable {
      *
      * @return the value of roleId
      */
+    /*
     public long getRoleId() {
         return roleId;
     }
-
+     */
     /**
      * Sets the value of roleId
      *
      * @param roleId value of roleId
      */
+    /*
     public void setRoleId(long roleId) {
         this.roleId = roleId;
     }
-
+     */
     @XmlTransient
     public Collection<Application> getApplicationCollection() {
         return applicationCollection;

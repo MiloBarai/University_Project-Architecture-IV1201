@@ -48,9 +48,9 @@ public class PersonFacade {
      *
      * @throws Exception
      */
-    public void Save(String username, String password, String name, String surname, String ssn, String email, long role) throws Exception {
-        
-        Person mPerson = new Person(username, GeneralUtils.encryptPass(password), name, surname, ssn, email, role);
+    public void Save(String username, String password, String name, String surname, String ssn, String email) throws Exception {
+
+        Person mPerson = new Person(username, GeneralUtils.encryptPass(password), name, surname, ssn, email);
         DBHandler db = new DBHandler(em);
         db.Save(mPerson);
     }

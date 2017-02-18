@@ -10,14 +10,9 @@
  */
 package se.kth.ict.iv1201.recruitmentapp.view;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
 import javax.inject.Named;
 import se.kth.ict.iv1201.recruitmentapp.controller.PersonFacade;
 import se.kth.ict.iv1201.recruitmentapp.model.Role;
@@ -51,13 +46,13 @@ public class Web {
     }
 
     public String[] getRoles() {
-        if(roles==null){
-            List<Role> temp=pf.getRoles();
-             roles = new String[temp.size()];
-            for(int i=0;i<temp.size();i++){
-                roles[i]=temp.get(i).getName();
+        if (roles == null) {
+            List<Role> temp = pf.getRoles();
+            roles = new String[temp.size()];
+            for (int i = 0; i < temp.size(); i++) {
+                roles[i] = temp.get(i).getName();
             }
-            
+
         }
         return roles;
     }

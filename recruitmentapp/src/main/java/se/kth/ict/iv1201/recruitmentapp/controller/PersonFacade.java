@@ -1,12 +1,23 @@
 /**
- * @author Arvid Persson Moosavi <amoosavi at kth.se>
+ * @author
+ *
+ * IV1201 Design of Global Applications: Group 8
+ * Arvid Persson Moosavi <amoosavi at kth.se>
+ * Arvin Behshad <arvinb at kth.se>
+ * Milad Barai <barai at kth.se>
+ * Massar Almosawi <massar at kth.se>
+ *
  */
 package se.kth.ict.iv1201.recruitmentapp.controller;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import se.kth.ict.iv1201.recruitmentapp.model.DBHandler;
 import se.kth.ict.iv1201.recruitmentapp.model.Person;
+import se.kth.ict.iv1201.recruitmentapp.model.Role;
+import se.kth.ict.iv1201.recruitmentapp.utils.GeneralUtils;
 
 /**
  * A controller. Calls to the model that are executed because of an action taken
@@ -18,6 +29,9 @@ public class PersonFacade {
     @PersistenceContext(unitName = "se.kth.ict.iv1201_recruitmentapp_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
+    /**
+     * @return the EntityManager instance em.
+     */
     protected EntityManager getEntityManager() {
         return em;
     }
@@ -36,46 +50,15 @@ public class PersonFacade {
      *
      * @throws Exception
      */
-    public void Save(String username, String password, String name, String surname, String ssn, String email, long role) throws Exception {
-
-        try {
-            Person mPerson = new Person(username, password, name, surname, ssn, email, role);
-            String reply = errorFinder(username, ssn, email);
-            if (!reply.equals("none")) {
-                throw new Exception(reply);
-            }
-            em.persist(mPerson);
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
-        }
+    public void Save(String username, String password, String name, String surname, String ssn, String email, String role) throws Exception {
+        DBHandler db = new DBHandler(em);
+        Role r = db.getRole(role);
+        Person mPerson = new Person(username, GeneralUtils.encryptPass(password), name, surname, ssn, email, r);
+        db.Save(mPerson);
     }
 
-    /**
-     * Checks for duplicate entries in the database. If any of the parameters
-     * were already registered in the db a corresponding error message is
-     * returned to caller.
-     *
-     * @param username user's username.
-     * @param ssn user's Social Security Number (ssn).
-     * @param email user's email.
-     *
-     * @return a proper error message if any of the parameters were duplicates
-     * in database.
-     */
-    private String errorFinder(String username, String ssn, String email) {
-
-        int i = em.createNativeQuery("SELECT * FROM person WHERE ssn='" + ssn + "'").getResultList().size();
-        if (i > 0) {
-            return "SSN already registered!";
-        }
-        i = em.createNativeQuery("SELECT * FROM person WHERE username='" + username + "'").getResultList().size();
-        if (i > 0) {
-            return "Username already registered!";
-        }
-        i = em.createNativeQuery("SELECT * FROM person WHERE email='" + email + "'").getResultList().size();
-        if (i > 0) {
-            return "Email already registered!";
-        }
-        return "none";
+    public List<Role> getRoles() {
+        DBHandler db = new DBHandler(em);
+        return db.getRoles();
     }
 }

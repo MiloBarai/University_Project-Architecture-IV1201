@@ -1,12 +1,21 @@
 /**
- * @author Arvid Persson Moosavi <amoosavi at kth.se>
+ * @author
+ *
+ * IV1201 Design of Global Applications: Group 8
+ * Arvid Persson Moosavi <amoosavi at kth.se>
+ * Arvin Behshad <arvinb at kth.se>
+ * Milad Barai <barai at kth.se>
+ * Massar Almosawi <massar at kth.se>
+ *
  */
 package se.kth.ict.iv1201.recruitmentapp.view;
 
+import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import se.kth.ict.iv1201.recruitmentapp.controller.PersonFacade;
+import se.kth.ict.iv1201.recruitmentapp.model.Role;
 
 /**
  * A view manager. All calls from JSF web view are handled through this class.
@@ -24,19 +33,52 @@ public class Web {
     private String surname;
     private String ssn;
     private String email;
-    private String errorMsg;
+    private String[] errorMsg = new String[1];
+    private String[] roles;
+    private String role;
 
-    public String getErrorMsg() {
+    public String getRole() {
+        return null;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String[] getRoles() {
+        if (roles == null) {
+            List<Role> temp = pf.getRoles();
+            roles = new String[temp.size()];
+            for (int i = 0; i < temp.size(); i++) {
+                roles[i] = temp.get(i).getName();
+            }
+
+        }
+        return roles;
+    }
+
+    /**
+     * Get the value of errorMsg
+     *
+     * @return the value of errorMsg
+     */
+    public String[] getErrorMsg() {
         return errorMsg;
     }
 
-    public void setErrorMsg(String errorMsg) {
+    /**
+     * Set the value of errorMsg
+     *
+     * @param errorMsg new value of errorMsg
+     */
+    public void setErrorMsg(String[] errorMsg) {
         this.errorMsg = errorMsg;
     }
-    private long role;
 
     /**
      * Never used but JSF does not support write-only properties.
+     *
+     * @return null
      */
     public String getUsername() {
         return null;
@@ -53,6 +95,8 @@ public class Web {
 
     /**
      * Never used but JSF does not support write-only properties.
+     *
+     * @return null
      */
     public String getPassword() {
         return null;
@@ -69,6 +113,8 @@ public class Web {
 
     /**
      * Never used but JSF does not support write-only properties.
+     *
+     * @return null
      */
     public String getName() {
         return null;
@@ -85,6 +131,8 @@ public class Web {
 
     /**
      * Never used but JSF does not support write-only properties.
+     *
+     * @return null
      */
     public String getSurname() {
         return null;
@@ -101,6 +149,8 @@ public class Web {
 
     /**
      * Never used but JSF does not support write-only properties.
+     *
+     * @return null
      */
     public String getSsn() {
         return null;
@@ -117,6 +167,8 @@ public class Web {
 
     /**
      * Never used but JSF does not support write-only properties.
+     *
+     * @return null
      */
     public String getEmail() {
         return null;
@@ -141,33 +193,15 @@ public class Web {
     public String save() {
         try {
             // Default role set to applicant (2)
-            this.role = 2;
+            // this.role = 2;
             pf.Save(username, password, name, surname, ssn, email, role);
 
         } catch (Exception e) {
-            errorMsg = getRootCause(e).getMessage();
-            username = "";
-            password = "";
-            name = "";
-            surname = "";
-            ssn = "";
-            email = "";
+            showErrorMsg(e);
+            resetFields();
             return "failure";
         }
         return "success";
-    }
-
-    /**
-     * Calls <code>PersonFacade.Save()</code> with given arguments.
-     *
-     * @param role user's role.
-     */
-    public void save(long role) {
-        try {
-            this.role = role;
-            pf.Save(username, password, name, surname, ssn, email, role);
-        } catch (Exception e) {
-        }
     }
 
     private static Throwable getRootCause(Throwable throwable) {
@@ -175,5 +209,52 @@ public class Web {
             return getRootCause(throwable.getCause());
         }
         return throwable;
+    }
+
+    private void showErrorMsg(Exception e) {
+        String error = getRootCause(e).getMessage();
+        String[] errorlist = error.split(":");
+
+        for (int i = 0; i < errorlist.length; i++) {
+            errorlist[i] = errorTranslator(errorlist[i]);
+        }
+
+        errorMsg = errorlist;
+
+    }
+
+    private void resetFields() {
+        username = "";
+        password = "";
+        name = "";
+        surname = "";
+        ssn = "";
+        email = "";
+    }
+
+    private String errorTranslator(String code) {
+        String ret;
+        switch (code) {
+            case "100":
+                ret = "User with SSN already registered";
+                break;
+            case "101":
+                ret = "Username is taken";
+                break;
+            case "102":
+                ret = "Email is already registered";
+            case "103":
+                ret = "Invalid format on SSN";
+                break;
+            case "104":
+                ret = "Unreasonable SSN";
+                break;
+            case "105":
+                ret = "Email not Reachable";
+                break;
+            default:
+                ret = "Unknow Error Occured, please contact us at mail@kth.se";
+        }
+        return ret;
     }
 }

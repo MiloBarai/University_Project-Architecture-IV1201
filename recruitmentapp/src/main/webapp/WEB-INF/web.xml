@@ -26,7 +26,7 @@
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>SecureConnection</web-resource-name>
-            <url-pattern>/index.xhtml</url-pattern>
+            <url-pattern>/recruitmentapp</url-pattern>
             <http-method>GET</http-method>
             <http-method>POST</http-method>
         </web-resource-collection>

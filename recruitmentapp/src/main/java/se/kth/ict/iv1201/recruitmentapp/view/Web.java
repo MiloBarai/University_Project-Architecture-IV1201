@@ -197,23 +197,15 @@ public class Web {
             pf.Save(username, password, name, surname, ssn, email, role);
 
         } catch (Exception e) {
-            //showErrorMsg(e);
-            errorMsg[0]=e.getMessage();
+            showErrorMsg(e);
             resetFields();
             return "failure";
         }
         return "success";
     }
 
-    private static Throwable getRootCause(Throwable throwable) {
-        if (throwable.getCause() != null) {
-            return getRootCause(throwable.getCause());
-        }
-        return throwable;
-    }
-
     private void showErrorMsg(Exception e) {
-        String error = getRootCause(e).getMessage();
+        String error = pf.getRootCause(e).getMessage();
         String[] errorlist = error.split(":");
 
         for (int i = 0; i < errorlist.length; i++) {

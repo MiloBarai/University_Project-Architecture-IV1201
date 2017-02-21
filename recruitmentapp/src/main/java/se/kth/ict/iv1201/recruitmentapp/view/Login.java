@@ -7,7 +7,7 @@ package se.kth.ict.iv1201.recruitmentapp.view;
 
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import se.kth.ict.iv1201.recruitmentapp.controller.LoginBean;
 
 /**
@@ -15,7 +15,7 @@ import se.kth.ict.iv1201.recruitmentapp.controller.LoginBean;
  * @author MediaMarkt
  */
 @Named(value = "login")
-@Dependent
+@RequestScoped
 public class Login {
 
     @EJB
@@ -23,9 +23,12 @@ public class Login {
 
     private String username;
     private String password;
-    private String msg="";
+    private String msg;
 
     public String getMsg() {
+        if (msg == null) {
+            return "";
+        }
         return msg;
     }
 
@@ -62,17 +65,21 @@ public class Login {
             loginController.authenticateUser(username, password);
         } catch (Exception ex) {
             String status = loginController.getRootcause(ex).getMessage();
-            String msg = getStatus(status);
-            return "failed";
+            if (status != null) {
+                msg = getStatus(status);
+            } else {
+                msg = ex.getMessage();
+            }
+            return "failure";
         }
-        return "sucessful";
+        return "success";
     }
 
     private String getStatus(String status) {
-        String ret="";
+        String ret = "";
         switch (status) {
             case "106":
-                ret = "Sorry we could not find the username!";
+                ret = "Sorry we could not find you! ";
                 break;
             case "107":
                 ret = "Woops! incorrect password!";

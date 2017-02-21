@@ -53,37 +53,37 @@ public class DBHandler {
      */
     private void inputValidation(String username, String ssn, String email) throws Exception {
 
-        String errors = "";
+        String status = "";
 
         int i = em.createNamedQuery("Person.findBySsn").setParameter("ssn", ssn).getResultList().size();
         if (i > 0) {
-            errors = "100:";
+            status = "100:";
         }
         i = em.createNamedQuery("Person.findByUsername").setParameter("username", username).getResultList().size();
         if (i > 0) {
-            errors += "101:";
+            status += "101:";
         }
         i = em.createNamedQuery("Person.findByEmail").setParameter("email", email).getResultList().size();
         if (i > 0) {
-            errors += "102:";
+            status += "102:";
         }
         if(ssn.length()!=12)
-            errors +="103:";
+            status +="103:";
         else{
             if(!(ssn.matches("[0-9]+")))
-                errors +="103:";
+                status +="103:";
             if(((Calendar.getInstance().get(Calendar.YEAR))-Integer.parseInt(ssn.substring(0, 4)))>122){
-                errors += "104:";
+                status += "104:";
             }
         }
         try{
             InetAddress ia = InetAddress.getByName(email.split("@")[1]);
         }
         catch(UnknownHostException e){
-            errors+="105:";
+            status+="105:";
         }
-        if (!errors.equals("")) {
-            throw new Exception(errors);
+        if (!status.equals("")) {
+            throw new Exception(status);
         }
     }
 
@@ -93,5 +93,23 @@ public class DBHandler {
 
     public Role getRole(String role) {
         return (Role)em.createNamedQuery("Role.findByName").setParameter("name", role).getSingleResult();
+    }
+
+    public boolean authenticate(String username, String encryptPass) throws Exception {
+        Person auth = getUser(username);
+        String password = auth.getPassword();        
+        if(encryptPass.equals(password))
+            return true;
+        else
+            throw new Exception("107");
+    }
+    private Person getUser(String username) throws Exception{
+        int i = em.createNamedQuery("Person.findByUsername").setParameter("username",username).getResultList().size();
+        if(i<1)
+            throw new Exception("106");
+        else
+            return (Person)em.createNamedQuery("Person.findByUsername").setParameter("username",username).getSingleResult();
+            
+        
     }
 }

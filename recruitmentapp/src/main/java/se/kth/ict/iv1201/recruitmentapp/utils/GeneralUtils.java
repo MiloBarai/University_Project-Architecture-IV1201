@@ -27,4 +27,10 @@ public class GeneralUtils {
 
         return encrypted;
     }
+        public static Throwable getRootCause(Throwable throwable) {
+        if (throwable.getCause() != null) {
+            return getRootCause(throwable.getCause());
+        }
+        return throwable;
+    }
 }

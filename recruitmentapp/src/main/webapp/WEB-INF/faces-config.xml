@@ -17,6 +17,18 @@
             <from-outcome>failure</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
+        
+        <from-view-id>/resource/login.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{login.save()}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/resources/welcome.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{login.save()}</from-action>
+            <from-outcome>failure</from-outcome>
+            <to-view-id>/resources/login.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
 
 </faces-config>

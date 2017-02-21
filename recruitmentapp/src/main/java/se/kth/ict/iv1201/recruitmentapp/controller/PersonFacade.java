@@ -61,4 +61,8 @@ public class PersonFacade {
         DBHandler db = new DBHandler(em);
         return db.getRoles();
     }
+
+    public Throwable getRootCause(Exception e) {
+        return GeneralUtils.getRootCause(e);
+    }
 }

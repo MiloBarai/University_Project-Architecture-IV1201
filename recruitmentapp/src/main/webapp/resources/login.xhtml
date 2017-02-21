@@ -17,7 +17,7 @@
                     <h:panelGrid columns="1" cellpadding="2">
                         <h:inputText value="#{login.username}" a:placeholder="Username"/>
                         <h:inputSecret value="#{login.password}" a:placeholder="Password"/>
-                         <h:commandButton value="Login" action="#{login.login()}"/>
+                         <h:commandButton value="Login" action="#{login.auth()}"/>
                          <br/>
                          <h:outputText value="#{login.msg}"/>
                     </h:panelGrid>

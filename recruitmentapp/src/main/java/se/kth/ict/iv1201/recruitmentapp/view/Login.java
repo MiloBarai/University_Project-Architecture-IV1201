@@ -23,7 +23,7 @@ public class Login {
 
     private String username;
     private String password;
-    private String msg;
+    private String msg="";
 
     public String getMsg() {
         return msg;
@@ -69,7 +69,7 @@ public class Login {
     }
 
     private String getStatus(String status) {
-        String ret;
+        String ret="";
         switch (status) {
             case "106":
                 ret = "Sorry we could not find the username!";

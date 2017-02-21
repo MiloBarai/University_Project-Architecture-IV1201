@@ -16,6 +16,9 @@ import java.util.Calendar;
 import java.util.List;
 import javax.persistence.EntityManager;
 
+/**
+ * A handler for database calls.
+ */
 public class DBHandler {
 
     EntityManager em;
@@ -28,7 +31,7 @@ public class DBHandler {
      * Creates a new user (Person) with the specified parameters and persists
      * its data.
      *
-     * @param p person to be saved in db
+     * @param p person to be saved to the database
      * @throws Exception
      */
     public void Save(Person p) throws Exception {
@@ -41,7 +44,7 @@ public class DBHandler {
             throw new Exception(e.getMessage());
         }
     }
-    
+
     /**
      * Checks for duplicate entries in the database. If any of the parameters
      * were already registered in the db a corresponding error message is
@@ -67,20 +70,20 @@ public class DBHandler {
         if (i > 0) {
             errors += "102:";
         }
-        if(ssn.length()!=12)
-            errors +="103:";
-        else{
-            if(!(ssn.matches("[0-9]+")))
-                errors +="103:";
-            if(((Calendar.getInstance().get(Calendar.YEAR))-Integer.parseInt(ssn.substring(0, 4)))>122){
+        if (ssn.length() != 12) {
+            errors += "103:";
+        } else {
+            if (!(ssn.matches("[0-9]+"))) {
+                errors += "103:";
+            }
+            if (((Calendar.getInstance().get(Calendar.YEAR)) - Integer.parseInt(ssn.substring(0, 4))) > 122) {
                 errors += "104:";
             }
         }
-        try{
+        try {
             InetAddress ia = InetAddress.getByName(email.split("@")[1]);
-        }
-        catch(UnknownHostException e){
-            errors+="105:";
+        } catch (UnknownHostException e) {
+            errors += "105:";
         }
         if (!errors.equals("")) {
             throw new Exception(errors);
@@ -92,6 +95,6 @@ public class DBHandler {
     }
 
     public Role getRole(String role) {
-        return (Role)em.createNamedQuery("Role.findByName").setParameter("name", role).getSingleResult();
+        return (Role) em.createNamedQuery("Role.findByName").setParameter("name", role).getSingleResult();
     }
 }

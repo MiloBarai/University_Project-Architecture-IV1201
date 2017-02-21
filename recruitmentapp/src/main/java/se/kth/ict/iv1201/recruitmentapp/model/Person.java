@@ -91,7 +91,7 @@ public class Person implements Serializable {
      * @param surname given surname of Person instance
      * @param ssn given Social Security Number (SSN) of Person instance
      * @param email given email of Person instance
-     * @param roleId given role id of Person instance
+     * @param role given role object
      *
      */
     public Person(String username, String password, String name, String surname, String ssn, String email, Role role) {

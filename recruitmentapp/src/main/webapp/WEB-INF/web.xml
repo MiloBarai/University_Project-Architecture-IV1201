@@ -23,18 +23,6 @@
         </session-timeout>
     </session-config>
     <security-constraint>
-        <display-name>Secure connection</display-name>
-        <web-resource-collection>
-            <web-resource-name>Secure connection</web-resource-name>
-            <url-pattern>/faces/*</url-pattern>
-            <http-method>GET</http-method>
-            <http-method>POST</http-method>
-        </web-resource-collection>
-        <user-data-constraint>
-            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-        </user-data-constraint>
-    </security-constraint>
-    <security-constraint>
         <display-name>AdminConstraint</display-name>
         <web-resource-collection>
             <web-resource-name>admin</web-resource-name>
@@ -73,10 +61,10 @@
     </security-constraint>
     <login-config>
         <auth-method>FORM</auth-method>
-        <realm-name>file</realm-name>
+        <realm-name>iv1201-realm</realm-name>
         <form-login-config>
-            <form-login-page>/faces/login.xhtml</form-login-page>
-            <form-error-page>/faces/error.xhtml</form-error-page>
+            <form-login-page>/resources/login.xhtml</form-login-page>
+            <form-error-page>/resources/error.xhtml</form-error-page>
         </form-login-config>
     </login-config>
     <security-role>

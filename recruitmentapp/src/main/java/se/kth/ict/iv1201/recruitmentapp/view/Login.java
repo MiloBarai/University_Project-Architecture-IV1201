@@ -15,6 +15,10 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import se.kth.ict.iv1201.recruitmentapp.controller.LoginBean;
 
+/**
+ * A view manager. All login calls from JSF web view are handled through this
+ * class.
+ */
 @Named(value = "login")
 @RequestScoped
 public class Login {
@@ -25,6 +29,12 @@ public class Login {
     private String username;
     private String password;
     private String msg;
+
+    /**
+     * Creates a new instance of Login
+     */
+    public Login() {
+    }
 
     /**
      * Get Msg value
@@ -47,7 +57,11 @@ public class Login {
         this.msg = msg;
     }
 
-    // Not Supported
+    /**
+     * Never used but JSF does not support write-only properties.
+     *
+     * @return null
+     */
     public String getUsername() {
         return null;
     }
@@ -61,7 +75,11 @@ public class Login {
         this.username = username;
     }
 
-    // Not Supported
+    /**
+     * Never used but JSF does not support write-only properties.
+     *
+     * @return null
+     */
     public String getPassword() {
         return null;
     }
@@ -73,12 +91,6 @@ public class Login {
      */
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    /**
-     * Creates a new instance of Login
-     */
-    public Login() {
     }
 
     /**

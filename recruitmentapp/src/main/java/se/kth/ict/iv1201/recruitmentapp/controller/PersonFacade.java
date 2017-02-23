@@ -56,6 +56,7 @@ public class PersonFacade {
         Person mPerson = new Person(username, GeneralUtils.encryptPass(password), name, surname, ssn, email, r);
         db.Save(mPerson);
     }
+
     /**
      * Get list of all roles
      *
@@ -65,12 +66,12 @@ public class PersonFacade {
         DBHandler db = new DBHandler(em);
         return db.getRoles();
     }
-    
+
     /**
      * Extracts the root message of a Exception
      *
-     * @param exception Exception with Root message wanting to be extracted
-     * 
+     * @param e Exception with Root message wanting to be extracted
+     *
      * @return a Exception containing the root message
      */
     public Throwable getRootCause(Exception e) {

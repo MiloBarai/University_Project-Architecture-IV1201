@@ -184,9 +184,8 @@ public class Web {
     }
 
     /**
-     * Calls <code>PersonFacade.Save()</code> with given arguments. Default role
-     * set to 2, which is applicant. Catches Exception(e) if the username, ssn
-     * or password is already found in the database.
+     * Calls <code>PersonFacade.Save()</code> with given arguments.
+     * Castes Exception if failed with status code
      *
      * @return Failure or Success depending on outcome of method call.
      */

@@ -1,7 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @author
+ *
+ * IV1201 Design of Global Applications: Group 8
+ * Arvid Persson Moosavi <amoosavi at kth.se>
+ * Arvin Behshad <arvinb at kth.se>
+ * Milad Barai <barai at kth.se>
+ * Massar Almosawi <massar at kth.se>
+ *
  */
 package se.kth.ict.iv1201.recruitmentapp.view;
 
@@ -10,10 +15,6 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import se.kth.ict.iv1201.recruitmentapp.controller.LoginBean;
 
-/**
- *
- * @author MediaMarkt
- */
 @Named(value = "login")
 @RequestScoped
 public class Login {
@@ -25,6 +26,11 @@ public class Login {
     private String password;
     private String msg;
 
+    /**
+     * Get Msg value
+     *
+     * @return msg value or Empty String
+     */
     public String getMsg() {
         if (msg == null) {
             return "";
@@ -32,24 +38,39 @@ public class Login {
         return msg;
     }
 
+    /**
+     * Set the value of msg
+     *
+     * @param msg new value of msg
+     */
     public void setMsg(String msg) {
         this.msg = msg;
     }
 
-    // dont want to be able to return
+    // Not Supported
     public String getUsername() {
         return null;
     }
 
+    /**
+     * Set the value of username
+     *
+     * @param username new value of username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
-    // dont want to be able to return
+    // Not Supported
     public String getPassword() {
         return null;
     }
 
+    /**
+     * Set the value of password
+     *
+     * @param password new value of username
+     */
     public void setPassword(String password) {
         this.password = password;
     }
@@ -60,6 +81,11 @@ public class Login {
     public Login() {
     }
 
+    /**
+     * Authenticates user
+     *
+     * @return String success or failure
+     */
     public String auth() {
         try {
             loginController.authenticateUser(username, password);

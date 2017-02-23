@@ -57,6 +57,11 @@ public class PersonFacade {
         db.Save(mPerson);
     }
 
+    /**
+     * Requests a list of available roles thru the db handler.
+     *
+     * @return a list of available roles.
+     */
     public List<Role> getRoles() {
         DBHandler db = new DBHandler(em);
         return db.getRoles();

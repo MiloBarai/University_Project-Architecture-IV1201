@@ -14,10 +14,19 @@ import java.security.MessageDigest;
 import java.util.Base64;
 
 /*
- * Javadoc placeholder
+ * General Utitlites to be used. All Static Methods
  */
 public class GeneralUtils {
 
+    /**
+     * encrypts password in SHA-256
+     *
+     * @param toEncrypt string to encrypt with SHA-256
+     *
+     * @return returns hash value encoded in base64
+     *
+     * @throws casts Exception if incorrect algorithm is given
+     */
     public static String encryptPass(String toEncrypt) throws Exception {
 
         MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -27,7 +36,15 @@ public class GeneralUtils {
 
         return encrypted;
     }
-        public static Throwable getRootCause(Throwable throwable) {
+
+    /**
+     * gets root cause of exception
+     *
+     * @param exception new value of username
+     * 
+     * @return root Exception
+     */
+    public static Throwable getRootCause(Throwable throwable) {
         if (throwable.getCause() != null) {
             return getRootCause(throwable.getCause());
         }

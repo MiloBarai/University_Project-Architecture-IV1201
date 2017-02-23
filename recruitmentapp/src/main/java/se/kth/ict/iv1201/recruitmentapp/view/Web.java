@@ -204,15 +204,8 @@ public class Web {
         return "success";
     }
 
-    private static Throwable getRootCause(Throwable throwable) {
-        if (throwable.getCause() != null) {
-            return getRootCause(throwable.getCause());
-        }
-        return throwable;
-    }
-
     private void showErrorMsg(Exception e) {
-        String error = getRootCause(e).getMessage();
+        String error = pf.getRootCause(e).getMessage();
         String[] errorlist = error.split(":");
 
         for (int i = 0; i < errorlist.length; i++) {

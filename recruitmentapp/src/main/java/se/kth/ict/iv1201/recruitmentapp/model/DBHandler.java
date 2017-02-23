@@ -16,6 +16,9 @@ import java.util.Calendar;
 import java.util.List;
 import javax.persistence.EntityManager;
 
+/**
+ * A handler for database calls.
+ */
 public class DBHandler {
     
     EntityManager em;
@@ -28,7 +31,7 @@ public class DBHandler {
      * Creates a new user (Person) with the specified parameters and persists
      * its data.
      *
-     * @param p person to be saved in db
+     * @param p person to be saved to the database
      * @throws Exception
      */
     public void Save(Person p) throws Exception {
@@ -68,7 +71,7 @@ public class DBHandler {
             status += "102:";
         }
         if (ssn.length() != 12) {
-            status += "103:";
+          status += "103:";
         } else {
             if (!(ssn.matches("[0-9]+"))) {
                 status += "103:";
@@ -116,6 +119,6 @@ public class DBHandler {
         } else {
             return (Person) em.createNamedQuery("Person.findByUsername").setParameter("username", username).getSingleResult();
         }
-        
     }
 }
+

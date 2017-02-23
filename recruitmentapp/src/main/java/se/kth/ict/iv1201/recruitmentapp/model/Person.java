@@ -290,5 +290,4 @@ public class Person implements Serializable {
     public String toString() {
         return "se.kth.ict.iv1201.recruitmentapp.entity.Person[ personId=" + personId + " ]";
     }
-
 }

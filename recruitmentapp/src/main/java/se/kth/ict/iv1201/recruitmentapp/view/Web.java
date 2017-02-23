@@ -37,14 +37,30 @@ public class Web {
     private String[] roles;
     private String role;
 
+    /**
+     * Never used but JSF does not support write-only properties.
+     *
+     * @return null
+     */
     public String getRole() {
         return null;
     }
 
+    /**
+     * Set the value of role
+     *
+     * @param role new value of role
+     */
     public void setRole(String role) {
         this.role = role;
     }
 
+    /**
+     * Get a list of available roles by calling
+     * <code>PersonFacade.getRoles()</code>.
+     *
+     * @return an array of available roles
+     */
     public String[] getRoles() {
         if (roles == null) {
             List<Role> temp = pf.getRoles();
@@ -52,7 +68,6 @@ public class Web {
             for (int i = 0; i < temp.size(); i++) {
                 roles[i] = temp.get(i).getName();
             }
-
         }
         return roles;
     }
@@ -184,17 +199,14 @@ public class Web {
     }
 
     /**
-     * Calls <code>PersonFacade.Save()</code> with given arguments.
-     * Castes Exception if failed with status code
+     * Calls <code>PersonFacade.Save()</code> with given arguments. Castes
+     * Exception if failed with status code
      *
      * @return Failure or Success depending on outcome of method call.
      */
     public String save() {
         try {
-            // Default role set to applicant (2)
-            // this.role = 2;
             pf.Save(username, password, name, surname, ssn, email, role);
-
         } catch (Exception e) {
             showErrorMsg(e);
             resetFields();
@@ -203,18 +215,24 @@ public class Web {
         return "success";
     }
 
+    /**
+     * Fetches error codes and translates them by calling
+     * <code>errorTranslator()</code>
+     */
     private void showErrorMsg(Exception e) {
+
         String error = pf.getRootCause(e).getMessage();
         String[] errorlist = error.split(":");
 
         for (int i = 0; i < errorlist.length; i++) {
             errorlist[i] = errorTranslator(errorlist[i]);
         }
-
         errorMsg = errorlist;
-
     }
 
+    /**
+     * Clear all user registration fields
+     */
     private void resetFields() {
         username = "";
         password = "";
@@ -224,6 +242,9 @@ public class Web {
         email = "";
     }
 
+    /**
+     * A collection of error messages which are translated by the error code
+     */
     private String errorTranslator(String code) {
         String ret;
         switch (code) {

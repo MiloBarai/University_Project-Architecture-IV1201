@@ -49,5 +49,3 @@ jboss/server/minimal/work/**/*
 *.DEPLOYED
 
 # End of https://www.gitignore.io/api/netbeans,maven,jboss
-recruitmentapp/src/main/webapp/WEB-INF/glassfish-resources.xml
-recruitmentapp/src/main/java/se/kth/ict/iv1201/recruitmentapp/view/UserAccountBean.java

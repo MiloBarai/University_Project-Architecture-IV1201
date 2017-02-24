@@ -10,10 +10,12 @@
  */
 package se.kth.ict.iv1201.recruitmentapp.view;
 
+import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import se.kth.ict.iv1201.recruitmentapp.controller.PersonFacade;
+import se.kth.ict.iv1201.recruitmentapp.model.Role;
 
 /**
  * A view manager. All calls from JSF web view are handled through this class.
@@ -31,24 +33,60 @@ public class Web {
     private String surname;
     private String ssn;
     private String email;
-    private String errorMsg;
-    private long role;
+    private String[] errorMsg = new String[1];
+    private String[] roles;
+    private String role;
 
     /**
-     * Get the value of errorMsg
+     * Never used but JSF does not support write-only properties.
+     *
+     * @return null
+     */
+    public String getRole() {
+        return null;
+    }
+
+    /**
+     * Set the value of role.
+     *
+     * @param role new value of role
+     */
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    /**
+     * Get a list of available roles by calling
+     * <code>PersonFacade.getRoles()</code>.
+     *
+     * @return an array of available roles
+     */
+    public String[] getRoles() {
+        if (roles == null) {
+            List<Role> temp = pf.getRoles();
+            roles = new String[temp.size()];
+            for (int i = 0; i < temp.size(); i++) {
+                roles[i] = temp.get(i).getName();
+            }
+        }
+        return roles;
+    }
+
+    /**
+     * Get the value of errorMsg.
      *
      * @return the value of errorMsg
      */
-    public String getErrorMsg() {
+    public String[] getErrorMsg() {
         return errorMsg;
     }
 
     /**
-     * Set the value of errorMsg
+     * Set the value of errorMsg.
      *
      * @param errorMsg new value of errorMsg
      */
-    public void setErrorMsg(String errorMsg) {
+    public void setErrorMsg(String[] errorMsg) {
         this.errorMsg = errorMsg;
     }
 
@@ -62,7 +100,7 @@ public class Web {
     }
 
     /**
-     * Set the value of username
+     * Set the value of username.
      *
      * @param username new value of username
      */
@@ -80,7 +118,7 @@ public class Web {
     }
 
     /**
-     * Set the value of password
+     * Set the value of password.
      *
      * @param password new value of password
      */
@@ -98,7 +136,7 @@ public class Web {
     }
 
     /**
-     * Set the value of name
+     * Set the value of name.
      *
      * @param name new value of name
      */
@@ -116,7 +154,7 @@ public class Web {
     }
 
     /**
-     * Set the value of surname
+     * Set the value of surname.
      *
      * @param surname new value of surname
      */
@@ -134,7 +172,7 @@ public class Web {
     }
 
     /**
-     * Set the value of ssn
+     * Set the value of ssn.
      *
      * @param ssn new value of ssn
      */
@@ -152,7 +190,7 @@ public class Web {
     }
 
     /**
-     * Set the value of email
+     * Set the value of email.
      *
      * @param email new value of email
      */
@@ -161,48 +199,79 @@ public class Web {
     }
 
     /**
-     * Calls <code>PersonFacade.Save()</code> with given arguments. Default role
-     * set to 2, which is applicant. Catches Exception(e) if the username, ssn
-     * or password is already found in the database.
+     * Calls <code>PersonFacade.Save()</code> with given arguments. Casts
+     * Exception if failed with status code.
      *
      * @return Failure or Success depending on outcome of method call.
      */
     public String save() {
         try {
-            // Default role set to applicant (2)
-            this.role = 2;
             pf.Save(username, password, name, surname, ssn, email, role);
-
         } catch (Exception e) {
-            errorMsg = getRootCause(e).getMessage();
-            username = "";
-            password = "";
-            name = "";
-            surname = "";
-            ssn = "";
-            email = "";
+            showErrorMsg(e);
+            resetFields();
             return "failure";
         }
         return "success";
     }
 
     /**
-     * Calls <code>PersonFacade.Save()</code> with given arguments.
+     * Translates error codes by calling <code>errorTranslator()</code>.
      *
-     * @param role user's role.
+     * @param e the exception to be translated.
      */
-    public void save(long role) {
-        try {
-            this.role = role;
-            pf.Save(username, password, name, surname, ssn, email, role);
-        } catch (Exception e) {
+    private void showErrorMsg(Exception e) {
+
+        String error = pf.getRootCause(e).getMessage();
+        String[] errorlist = error.split(":");
+
+        for (int i = 0; i < errorlist.length; i++) {
+            errorlist[i] = errorTranslator(errorlist[i]);
         }
+        errorMsg = errorlist;
     }
 
-    private static Throwable getRootCause(Throwable throwable) {
-        if (throwable.getCause() != null) {
-            return getRootCause(throwable.getCause());
+    /**
+     * Clear all user registration fields.
+     *
+     */
+    private void resetFields() {
+        username = "";
+        password = "";
+        name = "";
+        surname = "";
+        ssn = "";
+        email = "";
+    }
+
+    /**
+     * A collection of error messages which are translated by the error code.
+     *
+     * @param errorCode the error code to be translated.
+     */
+    private String errorTranslator(String errorCode) {
+        String translation;
+        switch (errorCode) {
+            case "100":
+                translation = "User with SSN already registered";
+                break;
+            case "101":
+                translation = "Username is taken";
+                break;
+            case "102":
+                translation = "Email is already registered";
+            case "103":
+                translation = "Invalid format on SSN";
+                break;
+            case "104":
+                translation = "Unreasonable SSN";
+                break;
+            case "105":
+                translation = "Email not Reachable";
+                break;
+            default:
+                translation = "Unknow Error Occured, please contact us at mail@kth.se";
         }
-        return throwable;
+        return translation;
     }
 }

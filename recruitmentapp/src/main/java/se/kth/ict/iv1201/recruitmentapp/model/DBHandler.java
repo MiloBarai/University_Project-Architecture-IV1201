@@ -10,12 +10,19 @@
  */
 package se.kth.ict.iv1201.recruitmentapp.model;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Calendar;
+import java.util.List;
 import javax.persistence.EntityManager;
 
+/**
+ * A handler for database calls.
+ */
 public class DBHandler {
-
+    
     EntityManager em;
-
+    
     public DBHandler(EntityManager em) {
         this.em = em;
     }
@@ -24,16 +31,14 @@ public class DBHandler {
      * Creates a new user (Person) with the specified parameters and persists
      * its data.
      *
-     * @param p person to be saved in db
+     * @param p person to be saved to the database
      * @throws Exception
      */
     public void Save(Person p) throws Exception {
-
+        //Remove "-" if any
+        p.setSsn(p.getSsn().replace("-", ""));
         try {
-            String reply = errorFinder(p.getUsername(), p.getSsn(), p.getEmail());
-            if (!reply.equals("none")) {
-                throw new Exception(reply);
-            }
+            inputValidation(p.getUsername(), p.getSsn(), p.getEmail());
             em.persist(p);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
@@ -48,29 +53,72 @@ public class DBHandler {
      * @param username user's username.
      * @param ssn user's Social Security Number (ssn).
      * @param email user's email.
-     *
-     * @return a proper error message if any of the parameters were duplicates
-     * in database.
      */
-    private String errorFinder(String username, String ssn, String email) {
-
-        String errors = "";
-
+    private void inputValidation(String username, String ssn, String email) throws Exception {
+        
+        String status = "";
+        
         int i = em.createNamedQuery("Person.findBySsn").setParameter("ssn", ssn).getResultList().size();
         if (i > 0) {
-            errors = "SSN already registered!";
+            status = "100:";
         }
         i = em.createNamedQuery("Person.findByUsername").setParameter("username", username).getResultList().size();
         if (i > 0) {
-            errors += " Username already registered!";
+            status += "101:";
         }
         i = em.createNamedQuery("Person.findByEmail").setParameter("email", email).getResultList().size();
         if (i > 0) {
-            errors += " Email already registered!";
+            status += "102:";
         }
-        if (!errors.equals("")) {
-            return errors;
+        if (ssn.length() != 12) {
+          status += "103:";
+        } else {
+            if (!(ssn.matches("[0-9]+"))) {
+                status += "103:";
+            }
+            if (((Calendar.getInstance().get(Calendar.YEAR)) - Integer.parseInt(ssn.substring(0, 4))) > 122) {
+                status += "104:";
+            }
         }
-        return "none";
+        if (email.contains("@") && email.contains(".")) {
+            try {
+                InetAddress ia = InetAddress.getByName(email.split("@")[1]);
+            } catch (UnknownHostException e) {
+                status += "105:";
+            }
+        } else {
+            status += "105:";
+        }
+        if (!status.equals("")) {
+            throw new Exception(status);
+        }
+    }
+    
+    public List<Role> getRoles() {
+        return em.createNamedQuery("Role.findAll").getResultList();
+    }
+    
+    public Role getRole(String role) {
+        return (Role) em.createNamedQuery("Role.findByName").setParameter("name", role).getSingleResult();
+    }
+    
+    public boolean authenticate(String username, String encryptPass) throws Exception {
+        Person auth = getUser(username);
+        String password = auth.getPassword();        
+        if (encryptPass.equals(password)) {
+            return true;
+        } else {
+            throw new Exception("107");
+        }
+    }
+
+    private Person getUser(String username) throws Exception {
+        int i = em.createNamedQuery("Person.findByUsername").setParameter("username", username).getResultList().size();
+        if (i < 1) {
+            throw new Exception("106");
+        } else {
+            return (Person) em.createNamedQuery("Person.findByUsername").setParameter("username", username).getSingleResult();
+        }
     }
 }
+

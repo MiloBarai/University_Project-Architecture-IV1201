@@ -15,12 +15,14 @@
             <ui:define name="top">Welcome, please log in.</ui:define>
             <ui:define name="content">
                 <h:form>
-                    <h:panelGrid columns="2" cellpadding="3">
+                    <h:panelGrid columns="3" cellpadding="3">
                         <h:outputLabel value="Username *"/>
                         <h:inputText value="#{login.username}" />
+                        <br />
                         <h:outputLabel value="Password *"/>
                         <h:inputSecret value="#{login.password}" />
-                         <h:commandButton value="Login" action="#{login.auth()}"/>
+                        <br/> 
+                        <h:commandButton value="Login" action="#{login.auth()}"/>
                          <br/>
                          <br/>
                          <h:outputText value="#{login.msg}" style="color:red"/>
@@ -30,8 +32,8 @@
         <br />
         <br />
         
-        <h3 style="margin-bottom: 5px">Not a member?</h3>
-        <h:link value="Register" outcome="resources/register" />
+        <h3 id="notamember">Not a member?</h3>
+        <h:link id="registerText" value="Register" outcome="resources/register" />
         <br />
         <br />
         <br />

@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      >
+          
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
 	<h:outputStylesheet library="css" name="style.css"  />
@@ -12,6 +13,24 @@
     </h:head>
 
     <h:body>
+        
+                <f:view locale="#{localeManager.locale}">
+                    <h:form>
+                        <h:commandLink action="#{localeManager.changeLocale}">
+                            <f:param name="languageCode" value="sv"/>
+                            <h:graphicImage value="/resources/templates/sv.gif"/>
+                        </h:commandLink>
+                        &nbsp;
+                        <h:commandLink action="#{localeManager.changeLocale}">
+                            <f:param name="languageCode" value="en"/>
+                            <h:graphicImage value="/resources/templates/en.gif"/>
+                        </h:commandLink>
+                    </h:form>
+
+                    <h1>#{messages.enterAddress}</h1>
+                    <h1>^Troll</h1>
+
+                </f:view>
 
 		<ui:insert name="header" >
 		  <ui:include src="head.xhtml" />

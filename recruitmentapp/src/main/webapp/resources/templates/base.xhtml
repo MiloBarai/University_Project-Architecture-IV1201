@@ -13,24 +13,8 @@
     </h:head>
 
     <h:body>
-        
-                <f:view locale="#{localeManager.locale}">
-                    <h:form>
-                        <h:commandLink action="#{localeManager.changeLocale}">
-                            <f:param name="languageCode" value="sv"/>
-                            <h:graphicImage value="/resources/templates/sv.gif"/>
-                        </h:commandLink>
-                        &nbsp;
-                        <h:commandLink action="#{localeManager.changeLocale}">
-                            <f:param name="languageCode" value="en"/>
-                            <h:graphicImage value="/resources/templates/en.gif"/>
-                        </h:commandLink>
-                    </h:form>
 
-                    <h1>#{messages.enterAddress}</h1>
-                    <h1>^Troll</h1>
-
-                </f:view>
+        <div id="wrapper">
 
 		<ui:insert name="header" >
 		  <ui:include src="head.xhtml" />
@@ -43,6 +27,8 @@
 	    	<ui:insert name="footer" >
 	    	  <ui:include src="footer.xhtml" />
                 </ui:insert>
+              
+        </div>
 
     </h:body>
 </html>

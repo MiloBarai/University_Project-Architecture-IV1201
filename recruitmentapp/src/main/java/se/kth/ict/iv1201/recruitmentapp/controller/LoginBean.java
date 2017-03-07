@@ -47,6 +47,47 @@ public class LoginBean {
         boolean res = db.authenticate(username, GeneralUtils.encryptPass(password));
         return res;
     }
+    /**
+     * Used to get role of user
+     * 
+     * @param username String, user to get role of
+     * @return Role of requested user
+     * @throws java.lang.Exception if used does not exsist
+     */
+    public String getUserRole(String username) throws Exception{
+        DBHandler db = new DBHandler(em);
+        return db.getUserRole(username);
+    }
+    
+    /**
+     * Authenticates user to check weather correct or incorrect credentials
+     *
+     * @param username username of the one wanting to login
+     * @param password password (encrypted)
+     *
+     * @return true if login succeded
+     */
+    public boolean authenticateUserEncrypted(String username, String password){
+        DBHandler db = new DBHandler(em);
+        boolean res = false;
+        try{
+        res = db.authenticate(username,password);
+        }catch(Exception e){
+        return false;
+        }
+        return res;
+    }
+    
+    /**
+     * Encrypt password
+     * 
+     * @param password
+     * @return String, Encrypted password
+     * @throws java.lang.Exception If incorrect Algorithm is choosen
+     */
+    public String encrypt(String password) throws Exception{
+    return GeneralUtils.encryptPass(password);
+    }
 
     /**
      * Gets root cause of an Exception

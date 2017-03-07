@@ -14,7 +14,7 @@ import java.security.MessageDigest;
 import java.util.Base64;
 
 /*
- * General Utitlites to be used. All Static Methods
+ * General Utilities to be used. All Static Methods
  */
 public class GeneralUtils {
 
@@ -25,7 +25,7 @@ public class GeneralUtils {
      *
      * @return returns hash value encoded in base64
      *
-     * @throws casts Exception if incorrect algorithm is given
+     * @throws Exception if incorrect algorithm is given
      */
     public static String encryptPass(String toEncrypt) throws Exception {
 
@@ -38,10 +38,10 @@ public class GeneralUtils {
     }
 
     /**
-     * gets root cause of exception
+     * Get root cause of exception
      *
-     * @param exception new value of username
-     * 
+     * @param throwable the exception to check
+     *
      * @return root Exception
      */
     public static Throwable getRootCause(Throwable throwable) {

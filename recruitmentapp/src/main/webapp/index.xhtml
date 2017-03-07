@@ -5,94 +5,43 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-
+    
     <h:head>
-        <title><ui:insert name="Register"/></title>
+        <title><ui:insert name="Login"/></title>
     </h:head>
     <h:body>
         <ui:composition template="resources/templates/base.xhtml">
-            <ui:define name="title">Register</ui:define>
-            <ui:define name="top">Register!</ui:define>
+            <ui:define name="title">Home</ui:define>
+            <ui:define name="top">Welcome, please log in.</ui:define>
             <ui:define name="content">
                 <h:form>
                     <h:panelGrid columns="3" cellpadding="3">
-
-                        <h:outputLabel value="Name"/>
-                        <h:inputText value="#{web.name}"
-                                     a:placeholder="Adolf"/>
-                        <!-- Decoy -->
-
-                        <h:outputLabel value="Surname"/>
-                        <h:inputText value="#{web.surname}"
-                                     a:placeholder="Adolfsson"/>
-                        <!-- Decoy -->
-
-                        <h:outputLabel value="SSN *"/>
-                        <h:inputText label="SSN"
-                                     id="ssn"
-                                     value="#{web.ssn}"
-                                     required="true"
-                                     a:placeholder="YYYYMMDD-XXXX">
-                            <f:validateRequired />
-                        </h:inputText>
-                        <h:message for="ssn" style="color:red" />
-
-                        <h:outputLabel value="Email *"/>
-                        <h:inputText label="Email"
-                                     id="email"
-                                     value="#{web.email}"
-                                     required="true"
-                                     a:placeholder="adolf@adolfsson.com">
-                            <f:validateRequired />
-                        </h:inputText>
-                        <h:message for="email" style="color:red" />
-                        
-                        <h:outputLabel value="Role *"/>
-                        <h:selectOneMenu value="#{web.role}">
-                            <f:selectItems value="#{web.roles}" var="role" itemValue="#{role}" />
-                        </h:selectOneMenu>
-                        <!-- Decoy! -->
-
-
                         <h:outputLabel value="Username *"/>
-                        <h:inputText label="Username"
-                                     id="username"
-                                     value="#{web.username}"
-                                     required="true"
-                                     a:placeholder="a username">
-                            <f:validateRequired />
-                        </h:inputText>
-                        <h:message for="username" style="color:red" />
-
+                        <h:inputText value="#{login.username}" />
+                        <br />
                         <h:outputLabel value="Password *"/>
-                        <h:inputSecret label="Password"
-                                     id="password"
-                                     value="#{web.password}"
-                                     required="true"
-                                     a:placeholder="a strong password">
-                            <f:validateRequired />
-                        </h:inputSecret>
-                        <h:message for="password" style="color:red" />
-
-                        <h:commandButton value="Register" action="#{web.save()}"/>
-
+                        <h:inputSecret value="#{login.password}" />
+                        <br/> 
+                        <h:commandButton value="Login" action="#{login.auth()}"/>
+                         <br/>
+                         <br/>
+                         <h:outputText value="#{login.msg}" style="color:red"/>
                     </h:panelGrid>
-                    <p><h:outputText value="Fields marked with an asterisk (*) are required."/></p>
-                    <div id="error">
-                        <ui:repeat value="#{web.errorMsg}" var="error">
-                            #{error}
-                            <br/>
-                            <br/>
-                        </ui:repeat>
-                    </div>
-
                 </h:form>
-                
-             
-            <h:link value="Login page" outcome="resources/login" />
+        <p><h:outputText value="Fields marked with an asterisk (*) are required."/></p>
+        <br />
+        <br />
+        
+        <h3 id="notamember">Not a member?</h3>
+        <h:link id="registerText" value="Register" outcome="resources/register" />
+        <br />
+        <br />
+        <br />
+        <br />
             </ui:define>
         </ui:composition>
-
+        
     </h:body>
+
+    
 </html>

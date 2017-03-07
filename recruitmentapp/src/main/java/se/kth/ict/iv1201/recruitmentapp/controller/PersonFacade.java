@@ -52,8 +52,8 @@ public class PersonFacade {
      */
     public void Save(String username, String password, String name, String surname, String ssn, String email, String role) throws Exception {
         DBHandler db = new DBHandler(em);
-        Role r = db.getRole(role);
-        Person mPerson = new Person(username, GeneralUtils.encryptPass(password), name, surname, ssn, email, r);
+        Role personRole = db.getRole(role);
+        Person mPerson = new Person(username, GeneralUtils.encryptPass(password), name, surname, ssn, email, personRole);
         db.Save(mPerson);
     }
 

@@ -47,7 +47,7 @@ public class Web {
     }
 
     /**
-     * Set the value of role
+     * Set the value of role.
      *
      * @param role new value of role
      */
@@ -73,7 +73,7 @@ public class Web {
     }
 
     /**
-     * Get the value of errorMsg
+     * Get the value of errorMsg.
      *
      * @return the value of errorMsg
      */
@@ -82,7 +82,7 @@ public class Web {
     }
 
     /**
-     * Set the value of errorMsg
+     * Set the value of errorMsg.
      *
      * @param errorMsg new value of errorMsg
      */
@@ -100,7 +100,7 @@ public class Web {
     }
 
     /**
-     * Set the value of username
+     * Set the value of username.
      *
      * @param username new value of username
      */
@@ -118,7 +118,7 @@ public class Web {
     }
 
     /**
-     * Set the value of password
+     * Set the value of password.
      *
      * @param password new value of password
      */
@@ -136,7 +136,7 @@ public class Web {
     }
 
     /**
-     * Set the value of name
+     * Set the value of name.
      *
      * @param name new value of name
      */
@@ -154,7 +154,7 @@ public class Web {
     }
 
     /**
-     * Set the value of surname
+     * Set the value of surname.
      *
      * @param surname new value of surname
      */
@@ -172,7 +172,7 @@ public class Web {
     }
 
     /**
-     * Set the value of ssn
+     * Set the value of ssn.
      *
      * @param ssn new value of ssn
      */
@@ -190,7 +190,7 @@ public class Web {
     }
 
     /**
-     * Set the value of email
+     * Set the value of email.
      *
      * @param email new value of email
      */
@@ -199,8 +199,8 @@ public class Web {
     }
 
     /**
-     * Calls <code>PersonFacade.Save()</code> with given arguments. Castes
-     * Exception if failed with status code
+     * Calls <code>PersonFacade.Save()</code> with given arguments. Casts
+     * Exception if failed with status code.
      *
      * @return Failure or Success depending on outcome of method call.
      */
@@ -216,8 +216,9 @@ public class Web {
     }
 
     /**
-     * Fetches error codes and translates them by calling
-     * <code>errorTranslator()</code>
+     * Translates error codes by calling <code>errorTranslator()</code>.
+     *
+     * @param e the exception to be translated.
      */
     private void showErrorMsg(Exception e) {
 
@@ -231,7 +232,8 @@ public class Web {
     }
 
     /**
-     * Clear all user registration fields
+     * Clear all user registration fields.
+     *
      */
     private void resetFields() {
         username = "";
@@ -243,31 +245,33 @@ public class Web {
     }
 
     /**
-     * A collection of error messages which are translated by the error code
+     * A collection of error messages which are translated by the error code.
+     *
+     * @param errorCode the error code to be translated.
      */
-    private String errorTranslator(String code) {
-        String ret;
-        switch (code) {
+    private String errorTranslator(String errorCode) {
+        String translation;
+        switch (errorCode) {
             case "100":
-                ret = "User with SSN already registered";
+                translation = "User with SSN already registered";
                 break;
             case "101":
-                ret = "Username is taken";
+                translation = "Username is taken";
                 break;
             case "102":
-                ret = "Email is already registered";
+                translation = "Email is already registered";
             case "103":
-                ret = "Invalid format on SSN";
+                translation = "Invalid format on SSN";
                 break;
             case "104":
-                ret = "Unreasonable SSN";
+                translation = "Unreasonable SSN";
                 break;
             case "105":
-                ret = "Email not Reachable";
+                translation = "Email not Reachable";
                 break;
             default:
-                ret = "Unknow Error Occured, please contact us at mail@kth.se";
+                translation = "Unknow Error Occured, please contact us at mail@kth.se";
         }
-        return ret;
+        return translation;
     }
 }

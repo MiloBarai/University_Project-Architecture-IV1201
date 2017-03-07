@@ -94,12 +94,37 @@ public class DBHandler {
         }
     }
     
+    /**
+     * Used to get list of all roles
+     * 
+     * @return List of all roles
+     */
     public List<Role> getRoles() {
         return em.createNamedQuery("Role.findAll").getResultList();
     }
     
+    /**
+     * Used to get specific role
+     * 
+     * @param role String, name of role
+     * 
+     * @return Role object, requested role
+     */
     public Role getRole(String role) {
         return (Role) em.createNamedQuery("Role.findByName").setParameter("name", role).getSingleResult();
+    }
+    
+    /**
+     * Used to get role of user
+     * 
+     * 
+     * @param username String, username of person to get role of
+     * @return Role of requested person
+     * 
+     * @throws java.lang.Exception if person does not exsist
+     */
+    public String getUserRole(String username) throws Exception{
+    return getUser(username).getRoleId().getName();
     }
     
     public boolean authenticate(String username, String encryptPass) throws Exception {

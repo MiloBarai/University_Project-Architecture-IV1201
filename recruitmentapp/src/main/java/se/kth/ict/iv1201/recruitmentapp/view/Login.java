@@ -30,6 +30,7 @@ public class Login {
     private String username;
     private String password;
     private String msg;
+
     @Inject
     private User userData;
 
@@ -127,9 +128,9 @@ public class Login {
         if (userData.getName() != null) {
             username = userData.getName();
             password = userData.getPass();
-            boolean sucess = loginController.authenticateUserEncrypted(username, password);
+            boolean success = loginController.authenticateUserEncrypted(username, password);
             String outcome = auth();
-            if (sucess) {
+            if (success) {
                 try {
                     return loginController.getUserRole(username);
                 } catch (Exception e) {
@@ -145,13 +146,13 @@ public class Login {
         String ret = "";
         switch (status) {
             case "106":
-                ret = "Sorry we could not find you! ";
+                ret = "Sorry, we could not find you! ";
                 break;
             case "107":
-                ret = "Woops! incorrect password!";
+                ret = "Woops! Incorrect password!";
                 break;
             default:
-                ret = "Unknow Error Occured, please contact us at mail@kth.se";
+                ret = "An Error Occured, please send us an email at mail@kth.se";
         }
         return ret;
     }

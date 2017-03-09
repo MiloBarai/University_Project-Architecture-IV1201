@@ -207,7 +207,6 @@ public class Web {
      */
     public String save() {
         try {
-            
             pf.Save(RegisterDTO());
         } catch (Exception e) {
             showErrorMsg(e);
@@ -231,7 +230,6 @@ public class Web {
         }
         errorMsg = errorlist;
     }
-
 
     /**
      * A collection of error messages which are translated by the error code.
@@ -259,11 +257,17 @@ public class Web {
                 translation = "Email not Reachable";
                 break;
             default:
-                translation = "Unknow Error Occured, please contact us at mail@kth.se";
+                translation = "An Error Occured, please send us an email at mail@kth.se";
         }
         return translation;
     }
-    private RegisterDTO RegisterDTO(){
+
+    /**
+     * Creation of a DTO containing the information fetched from the view
+     *
+     * @return the created DTO
+     */
+    private RegisterDTO RegisterDTO() {
         RegisterDTO reg = new RegisterDTO();
         reg.setName(name);
         reg.setEmail(email);
@@ -272,6 +276,7 @@ public class Web {
         reg.setSsn(ssn);
         reg.setSurname(surname);
         reg.setUsername(username);
+
         return reg;
     }
 }

@@ -13,6 +13,7 @@ package se.kth.ict.iv1201.recruitmentapp.view;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import se.kth.ict.iv1201.recruitmentapp.controller.LoginBean;
 
 /**
@@ -29,6 +30,8 @@ public class Login {
     private String username;
     private String password;
     private String msg;
+    @Inject
+    private User userData;
 
     /**
      * Creates a new instance of Login
@@ -110,7 +113,32 @@ public class Login {
             }
             return "failure";
         }
-        return "success";
+        userData.setName(username);
+        userData.setPassword(password);
+        return userData.getRole().toLowerCase();
+    }
+
+    /**
+     * Used onload to check if user loged in
+     *
+     * @return String, returns navigation case or ""
+     */
+    public String logedCheck() {
+        if (userData.getName() != null) {
+            username = userData.getName();
+            password = userData.getPass();
+            boolean sucess = loginController.authenticateUserEncrypted(username, password);
+            String outcome = auth();
+            if (sucess) {
+                try {
+                    return loginController.getUserRole(username);
+                } catch (Exception e) {
+                    msg = "Invalid active session";
+                }
+
+            }
+        }
+        return "";
     }
 
     private String getStatus(String status) {

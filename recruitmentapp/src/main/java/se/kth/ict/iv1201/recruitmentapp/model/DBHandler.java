@@ -20,9 +20,9 @@ import javax.persistence.EntityManager;
  * A handler for database calls.
  */
 public class DBHandler {
-    
+
     EntityManager em;
-    
+
     public DBHandler(EntityManager em) {
         this.em = em;
     }
@@ -55,9 +55,9 @@ public class DBHandler {
      * @param email user's email.
      */
     private void inputValidation(String username, String ssn, String email) throws Exception {
-        
+
         String status = "";
-        
+
         int i = em.createNamedQuery("Person.findBySsn").setParameter("ssn", ssn).getResultList().size();
         if (i > 0) {
             status = "100:";
@@ -71,7 +71,7 @@ public class DBHandler {
             status += "102:";
         }
         if (ssn.length() != 12) {
-          status += "103:";
+            status += "103:";
         } else {
             if (!(ssn.matches("[0-9]+"))) {
                 status += "103:";
@@ -93,18 +93,54 @@ public class DBHandler {
             throw new Exception(status);
         }
     }
-    
+
+    /**
+     * List all roles
+     *
+     * @return List of all roles
+     */
     public List<Role> getRoles() {
         return em.createNamedQuery("Role.findAll").getResultList();
     }
-    
+
+    /**
+     * Get a specific role
+     *
+     * @param role String, name of role
+     *
+     * @return Role object, requested role
+     */
     public Role getRole(String role) {
         return (Role) em.createNamedQuery("Role.findByName").setParameter("name", role).getSingleResult();
     }
-    
+
+    /**
+     * Get a user role
+     *
+     *
+     * @param username the username of a person to get the role of
+     * @return Role of requested person
+     *
+     * @throws java.lang.Exception if person does not exsist
+     */
+    public String getUserRole(String username) throws Exception {
+        return getUser(username).getRoleId().getName();
+    }
+
+    /**
+     * Authenticates a person given a username and a password. The password is
+     * encrypted and matched against the database password.
+     *
+     *
+     * @param username the username to authenticate
+     * @param encryptPass the password to authenticate
+     * @return true on success, error code "107" on failure.
+     *
+     * @throws java.lang.Exception if person does not exsist
+     */
     public boolean authenticate(String username, String encryptPass) throws Exception {
         Person auth = getUser(username);
-        String password = auth.getPassword();        
+        String password = auth.getPassword();
         if (encryptPass.equals(password)) {
             return true;
         } else {
@@ -121,4 +157,3 @@ public class DBHandler {
         }
     }
 }
-

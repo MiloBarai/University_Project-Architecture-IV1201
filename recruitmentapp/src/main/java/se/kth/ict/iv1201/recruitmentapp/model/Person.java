@@ -27,6 +27,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlTransient;
+import se.kth.ict.iv1201.DTO.RegisterDTO;
 
 /**
  * A persistent representation of a Person.
@@ -83,7 +84,8 @@ public class Person implements Serializable {
     }
 
     /**
-     * Creates a new instance of Person
+     * Creates a new instance of Person. Currently not in use since we are using
+     * a DTO.
      *
      * @param username given username of Person instance
      * @param password given password of Person instance
@@ -102,6 +104,23 @@ public class Person implements Serializable {
         this.ssn = ssn;
         this.email = email;
         this.roleId = role;
+    }
+
+    /**
+     * Creates a person object using provided DTO and role.
+     *
+     * @param regDTO given DTO containing the person information
+     * @param personRole given role of the person
+     *
+     */
+    public Person(RegisterDTO regDTO, Role personRole) {
+        this.username = regDTO.getUsername();
+        this.password = regDTO.getPassword();
+        this.name = regDTO.getName();
+        this.surname = regDTO.getSurname();
+        this.ssn = regDTO.getSsn();
+        this.email = regDTO.getEmail();
+        this.roleId = personRole;
     }
 
     /**

@@ -14,12 +14,12 @@ import java.security.MessageDigest;
 import java.util.Base64;
 
 /*
- * General Utilities to be used. All Static Methods
+ * General Utilities to be used. All Static Methods.
  */
 public class GeneralUtils {
 
     /**
-     * encrypts password in SHA-256
+     * Encrypts password using SHA-256
      *
      * @param toEncrypt string to encrypt with SHA-256
      *

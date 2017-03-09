@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
+import se.kth.ict.iv1201.DTO.RegisterDTO;
 import se.kth.ict.iv1201.recruitmentapp.controller.PersonFacade;
 import se.kth.ict.iv1201.recruitmentapp.model.Role;
 
@@ -206,10 +207,9 @@ public class Web {
      */
     public String save() {
         try {
-            pf.Save(username, password, name, surname, ssn, email, role);
+            pf.Save(RegisterDTO());
         } catch (Exception e) {
             showErrorMsg(e);
-            resetFields();
             return "failure";
         }
         return "success";
@@ -229,19 +229,6 @@ public class Web {
             errorlist[i] = errorTranslator(errorlist[i]);
         }
         errorMsg = errorlist;
-    }
-
-    /**
-     * Clear all user registration fields.
-     *
-     */
-    private void resetFields() {
-        username = "";
-        password = "";
-        name = "";
-        surname = "";
-        ssn = "";
-        email = "";
     }
 
     /**
@@ -270,8 +257,26 @@ public class Web {
                 translation = "Email not Reachable";
                 break;
             default:
-                translation = "Unknow Error Occured, please contact us at mail@kth.se";
+                translation = "An Error Occured, please send us an email at mail@kth.se";
         }
         return translation;
+    }
+
+    /**
+     * Creation of a DTO containing the information fetched from the view
+     *
+     * @return the created DTO
+     */
+    private RegisterDTO RegisterDTO() {
+        RegisterDTO reg = new RegisterDTO();
+        reg.setName(name);
+        reg.setEmail(email);
+        reg.setPassword(password);
+        reg.setRole(role);
+        reg.setSsn(ssn);
+        reg.setSurname(surname);
+        reg.setUsername(username);
+
+        return reg;
     }
 }

@@ -1,6 +1,26 @@
 body{
     background-color: gainsboro;
+    font-family: Helvetica, Arial, Sans-Serif;
 }
 #error{
     color: red;
 }
+
+#wrapper{
+    max-width: 1020px;
+    margin: 0 auto;
+}
+
+#notamember{
+    margin-bottom: 5px;
+}
+
+#registerText{
+    font-size: 20px;
+    text-decoration: none;
+}
+
+#loginText{
+    font-size: 20px;
+    text-decoration: none;
+} 

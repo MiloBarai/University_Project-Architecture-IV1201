@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import se.kth.ict.iv1201.DTO.RegisterDTO;
 import se.kth.ict.iv1201.recruitmentapp.model.DBHandler;
 import se.kth.ict.iv1201.recruitmentapp.model.Person;
 import se.kth.ict.iv1201.recruitmentapp.model.Role;
@@ -40,20 +41,30 @@ public class PersonFacade {
      * Creates a new user (Person) with the specified parameters and persists
      * its data.
      *
-     * @param username user's username.
-     * @param password user's password.
-     * @param name user's name.
-     * @param surname user's surname.
-     * @param ssn user's Social Security Number (ssn).
-     * @param email user's email.
-     * @param role user's role.
+     * Transaction begins: Within a transaction, a subsequent lookup doesn't
+     * return any of the detached objects. However, two lookups within the same
+     * transaction return the same instance, because the persistence context
+     * spans the transaction.
      *
-     * @throws Exception
+     * TransactionManagement value is CONTAINER and the the default
+     * TransactionAttribute value is REQUIRED.
+     *
+     * Default transaction closes if no exceptions are returned to the view
+     * <code>Web.save()</code>
+     *
+     * @see
+     * <a href="http://docs.oracle.com/javaee/6/tutorial/doc/bncij.html">
+     * http://docs.oracle.com/javaee/6/tutorial/doc/bncij.html</a>
+     *
+     * @param regDTO RegisterDTO, containing information for the registration
+     *
+     * @throws Exception with Error msg.
      */
-    public void Save(String username, String password, String name, String surname, String ssn, String email, String role) throws Exception {
+    public void Save(RegisterDTO regDTO) throws Exception {
         DBHandler db = new DBHandler(em);
-        Role personRole = db.getRole(role);
-        Person mPerson = new Person(username, GeneralUtils.encryptPass(password), name, surname, ssn, email, personRole);
+        Role personRole = db.getRole(regDTO.getRole());
+        regDTO.setPassword(GeneralUtils.encryptPass(regDTO.getPassword()));
+        Person mPerson = new Person(regDTO, personRole);
         db.Save(mPerson);
     }
 

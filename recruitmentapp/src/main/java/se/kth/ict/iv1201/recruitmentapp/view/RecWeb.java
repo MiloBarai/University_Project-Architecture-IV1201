@@ -15,21 +15,20 @@ import javax.enterprise.context.Dependent;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
-
 @Named(value = "recWeb")
 @Dependent
 public class RecWeb {
 
     @Inject
     private User userData;
-    
+
     /**
      * Creates a new instance of RecWeb
      */
     public RecWeb() {
     }
-    
-        /**
+
+    /**
      * Used to get Username of current user
      *
      * @return String, Username of current user
@@ -37,11 +36,12 @@ public class RecWeb {
     public String getUsername() {
         return userData.getName();
     }
+
     /**
      * Used to check the role of the user
-     * 
-     * 
-     * @return String describing outcome of check
+     *
+     * @return an empty String on true, a "failure" String on false, dependent
+     * on the check outcome.
      */
     public String checkUser() {
         if (userData.getRole().equalsIgnoreCase("Recruit")) {
@@ -49,16 +49,15 @@ public class RecWeb {
         }
         return "failure";
     }
-    
+
     /**
-     * Used to Logout user 
-     * invalidates entire session
-     * 
+     * Used to Logout user invalidates entire session
+     *
      * @return String, returns index page redirect
      */
-    public String logout(){
-    FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+    public String logout() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "/index.xhtml?faces-redirect=true";
     }
-    
+
 }

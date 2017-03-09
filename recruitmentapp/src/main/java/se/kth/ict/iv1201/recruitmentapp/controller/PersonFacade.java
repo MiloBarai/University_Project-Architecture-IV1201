@@ -41,7 +41,7 @@ public class PersonFacade {
      * Creates a new user (Person) with the specified parameters and persists
      * its data.
      *
-     * @param regDTO RegisterDTO, contains information for registartion
+     * @param regDTO RegisterDTO, containing information for the registration
      *
      * @throws Exception with Error msg.
      */

@@ -11,7 +11,6 @@
 package se.kth.ict.iv1201.recruitmentapp.view;
 
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -37,10 +36,11 @@ public class AppWeb {
     public String getUsername() {
         return userData.getName();
     }
+
     /**
      * Used to check the role of the user
-     * 
-     * 
+     *
+     *
      * @return String describing outcome of check
      */
     public String checkUser() {
@@ -49,16 +49,14 @@ public class AppWeb {
         }
         return "failure";
     }
-    
-        /**
-     * Used to Logout user 
-     * invalidates entire session
-     * 
+
+    /**
+     * Used to Logout user invalidates entire session
+     *
      * @return String, returns index page redirect
      */
-    public String logout(){
-    FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+    public String logout() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "/index.xhtml?faces-redirect=true";
     }
-
 }

@@ -1,7 +1,7 @@
-# Recruitment System
+# Project Description
 
+Done at KTH University as a part of the course IV1201 Design of global applications,
 Designing a web based recruitment tool for a company who is recruiting staff for the coming season.
-This is a project for our course IV1201 DESIGN OF GLOBAL APPLICATIONS.
 
 __Instructions__
 
